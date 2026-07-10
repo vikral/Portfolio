@@ -26,14 +26,15 @@ export default function Nav() {
 
         {!isMobile && (
           <ul style={{display:'flex',gap:'32px',listStyle:'none',alignItems:'center'}}>
-            {['about','experience','work','services','contact'].map(id => (
+            {['about','experience','work','services'].map(id => (
               <li key={id}><NavLink href={`#${id}`}>{id.charAt(0).toUpperCase()+id.slice(1)}</NavLink></li>
             ))}
+            <li><RouteNavLink to="/know-me">Know Me</RouteNavLink></li>
+            <li><NavLink href="#contact">Contact</NavLink></li>
             <li>
               <Link to="/blog" style={{fontFamily:"'Syne',sans-serif",fontSize:'12px',fontWeight:700,letterSpacing:'.15em',textTransform:'uppercase',color:'#fff',background:'var(--accent)',padding:'7px 16px',borderRadius:'100px',textDecoration:'none'}}>
                 Blogs
               </Link>
-              <Link to="/know-me">Know Me</Link>
             </li>
           </ul>
         )}
@@ -93,7 +94,7 @@ export default function Nav() {
         </button>
 
         {/* Nav links */}
-        {['about','experience','work','services','contact'].map(id => (
+        {['about','experience','work','services'].map(id => (
           <a key={id} href={`#${id}`} onClick={close} style={{
             fontFamily:"'Bebas Neue',sans-serif",fontSize:'clamp(40px,10vw,60px)',
             color:'var(--ink)',textDecoration:'none',letterSpacing:'.05em',lineHeight:1.4,
@@ -101,6 +102,18 @@ export default function Nav() {
             {id.charAt(0).toUpperCase()+id.slice(1)}
           </a>
         ))}
+        <Link to="/know-me" onClick={close} style={{
+          fontFamily:"'Bebas Neue',sans-serif",fontSize:'clamp(40px,10vw,60px)',
+          color:'var(--ink)',textDecoration:'none',letterSpacing:'.05em',lineHeight:1.4,
+        }}>
+          Know Me
+        </Link>
+        <a href="#contact" onClick={close} style={{
+          fontFamily:"'Bebas Neue',sans-serif",fontSize:'clamp(40px,10vw,60px)',
+          color:'var(--ink)',textDecoration:'none',letterSpacing:'.05em',lineHeight:1.4,
+        }}>
+          Contact
+        </a>
         <Link to="/blog" onClick={close} style={{
           fontFamily:"'Bebas Neue',sans-serif",fontSize:'clamp(40px,10vw,60px)',
           color:'var(--accent)',textDecoration:'none',letterSpacing:'.05em',lineHeight:1.4,
@@ -124,5 +137,16 @@ function NavLink({ href, children }) {
       {children}
       <span style={{position:'absolute',bottom:'-2px',left:0,width:hover?'100%':'0',height:'1px',background:'var(--accent)',transition:'width .3s'}}/>
     </a>
+  )
+}
+
+function RouteNavLink({ to, children }) {
+  const [hover, setHover] = useState(false)
+  return (
+    <Link to={to} onMouseEnter={()=>setHover(true)} onMouseLeave={()=>setHover(false)}
+      style={{fontFamily:"'Syne',sans-serif",fontSize:'12px',fontWeight:600,letterSpacing:'.15em',textTransform:'uppercase',color:'var(--ink)',textDecoration:'none',position:'relative'}}>
+      {children}
+      <span style={{position:'absolute',bottom:'-2px',left:0,width:hover?'100%':'0',height:'1px',background:'var(--accent)',transition:'width .3s'}}/>
+    </Link>
   )
 }

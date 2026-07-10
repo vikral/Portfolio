@@ -33,17 +33,17 @@ export default function Hero() {
         </div>
         <h1 style={{fontFamily:"'Bebas Neue',sans-serif",fontSize: isMobile ? 'clamp(64px,16vw,100px)' : 'clamp(72px,10vw,140px)',lineHeight:.88,letterSpacing:'-.01em',color:'var(--ink)',marginBottom:'8px'}}>
           Shubham
-          <span style={{color:'var(--accent)',display:'block',fontFamily:"'DM Serif Display',serif",fontStyle:'italic',fontSize: isMobile ? 'clamp(52px,13vw,80px)' : 'clamp(60px,8vw,110px)'}}>Choudhary</span>
+          <span style={{color:'var(--accent)',display:'block',fontFamily:"'DM Serif Display',serif",fontStyle:'italic',fontSize: isMobile ? 'clamp(52px,13vw,80px)' : 'clamp(60px,8vw,110px)'}}>Kumar</span>
         </h1>
         <div style={{fontFamily:"'Syne',sans-serif",fontSize:'13px',fontWeight:600,letterSpacing:'.2em',textTransform:'uppercase',color:'var(--warm)',marginBottom:'20px'}}>Software Engineer</div>
         <p style={{fontSize:'15px',fontWeight:300,color:'var(--mid)',maxWidth: isMobile ? '100%' : '420px',margin:'0 0 32px',lineHeight:1.8}}>
-          4 years of experience building websites, e-commerce solutions, plugins, and technological solutions — writing clean, reusable, scalable code in WordPress & Angular.
+          4.5+ years of experience delivering scalable WordPress, WooCommerce, Drupal, and Angular solutions with clean code, CMS architecture, performance optimization, SEO, and accessibility in mind.
         </p>
 
         {/* Mobile stats (shown only on mobile) */}
         {isMobile && (
           <div style={{display:'grid',gridTemplateColumns:'repeat(3,1fr)',gap:'1px',background:'var(--light)',border:'1px solid var(--light)',marginBottom:'32px'}}>
-            {[['04+','Years'],['100+','Projects'],['03','Companies']].map(([n,l],i) => (
+            {[['4.5+','Years'],['03','Companies'],['CMS','Specialist']].map(([n,l],i) => (
               <div key={i} style={{background:'var(--cream)',padding:'16px 12px',textAlign:'center'}}>
                 <div style={{fontFamily:"'Bebas Neue',sans-serif",fontSize:'36px',lineHeight:1,color:'var(--ink)'}}>{n}</div>
                 <div style={{fontFamily:"'Syne',sans-serif",fontSize:'9px',fontWeight:700,letterSpacing:'.1em',textTransform:'uppercase',color:'var(--mid)',marginTop:'4px'}}>{l}</div>
@@ -67,9 +67,9 @@ export default function Hero() {
         <div ref={ref2} style={{position:'relative',zIndex:1,paddingTop:'80px',display:'flex',flexDirection:'column',alignItems:'flex-end',justifyContent:'center',gap:'40px'}}>
           <div style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:'1px',background:'var(--light)',border:'1px solid var(--light)',width:'320px'}}>
             {[
-              {num:'04+',label:'Years\nExperience'},
-              {num:'100+',label:'Projects\nDelivered'},
+              {num:'4.5+',label:'Years\nExperience'},
               {num:'03',label:'Companies\nWorked'},
+              {num:'CMS',label:'WordPress\nWooCommerce'},
             ].map((s,i) => (
               <div key={i} style={{background:'var(--cream)',padding:'28px 24px'}}>
                 <div style={{fontFamily:"'Bebas Neue',sans-serif",fontSize:'52px',lineHeight:1,color:'var(--ink)'}}>{s.num}</div>
