@@ -57,8 +57,8 @@ export default function About() {
           fontFamily:"'Syne',sans-serif",fontSize:'13px',fontWeight:700,
           maxWidth: isMobile ? '160px' : 'auto',
         }}>
-          <strong style={{display:'block',fontFamily:"'Bebas Neue',sans-serif",fontSize:'40px',lineHeight:1}}>4</strong>
-          Years of Crafting Experiences
+          <strong style={{display:'block',fontFamily:"'Bebas Neue',sans-serif",fontSize:'40px',lineHeight:1}}>4.5+</strong>
+          Years Building Web Platforms
         </div>
       </div>
 
@@ -71,10 +71,10 @@ export default function About() {
           Discover My<br/><em style={{fontFamily:"'DM Serif Display',serif",fontStyle:'italic',color:'var(--accent)'}}>Journey</em>
         </div>
         <p style={{fontSize:'15px',color:'var(--mid)',lineHeight:1.9,fontWeight:300,margin:'0 0 16px'}}>
-          In my 4 years as a developer, I seek to train every day. I have worked in theme development, plugin development in WordPress and covering various developer roles with Angular and WordPress. I have led teams with empathy, exercising motivation to partners, and setting plans and goals together.
+          I am a Software Engineer with 4.5+ years of experience delivering scalable CMS and web application solutions across WordPress, WooCommerce, Drupal, Angular, PHP, JavaScript, and MySQL.
         </p>
         <p style={{fontSize:'15px',color:'var(--mid)',lineHeight:1.9,fontWeight:300,margin:'0 0 20px'}}>
-          My skills include implementing system improvements, optimizing sites, standardizing patterns, and suggesting ideas that add value to the project I'm working on.
+          My work spans custom WordPress theme and plugin development, ACF Pro architecture, e-commerce workflows, REST API integrations, performance optimization, SEO, accessibility, and CMS tools that non-technical teams can manage confidently.
         </p>
         <div style={{
           display:'grid',
@@ -82,7 +82,7 @@ export default function About() {
           gap:'1px',background:'var(--light)',border:'1px solid var(--light)',
           margin:'28px 0 36px',
         }}>
-          {[['04+','Years of Experience'],['100+','Projects Delivered'],['03','Companies']].map(([n,l],i) => (
+          {[['4.5+','Years of Experience'],['03','Companies'],['CMS','Core Focus']].map(([n,l],i) => (
             <div key={i} style={{background:'var(--cream)',padding: isMobile ? '16px 12px' : '24px 20px'}}>
               <div style={{fontFamily:"'Bebas Neue',sans-serif",fontSize: isMobile ? '36px' : '48px',lineHeight:1,color:'var(--ink)'}}>{n}</div>
               <div style={{fontFamily:"'Syne',sans-serif",fontSize: isMobile ? '8px' : '10px',fontWeight:700,letterSpacing:'.1em',textTransform:'uppercase',color:'var(--mid)',marginTop:'4px'}}>{l}</div>
