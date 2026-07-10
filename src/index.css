@@ -1,0 +1,209 @@
+:root {
+  --cream: #F5F0E8;
+  --ink:   #0D0D0D;
+  --warm:  #C8A97E;
+  --accent:#E84B2B;
+  --mid:   #7A7060;
+  --light: #E8E2D6;
+}
+
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--cream);
+  color: var(--ink);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 16px;
+  line-height: 1.6;
+  overflow-x: hidden;
+  cursor: none;
+}
+
+/* Restore default cursor on touch devices */
+@media (hover: none), (max-width: 767px) {
+  body { cursor: auto; }
+  a, button { cursor: auto; }
+}
+
+/* ── Animations ─────────────────────────────────────── */
+@keyframes marquee {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+@keyframes scrollLine {
+  0%   { left: -100%; }
+  50%  { left: 0;     }
+  100% { left: 100%;  }
+}
+
+.scroll-line-anim {
+  position: absolute;
+  top: 0; left: -100%;
+  width: 100%; height: 100%;
+  background: var(--accent);
+  animation: scrollLine 2s ease-in-out infinite;
+}
+
+/* ── Global link cursor on desktop ─────────────────── */
+@media (hover: hover) and (min-width: 768px) {
+  a, button { cursor: none; }
+}
+
+/* ── Tap highlight removal on mobile ───────────────── */
+* { -webkit-tap-highlight-color: transparent; }
+
+/* ── Smooth image rendering ────────────────────────── */
+img { display: block; max-width: 100%; }
+
+/* ── Focus styles for accessibility ────────────────── */
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+/* ── Blog article content styles ────────────────────── */
+.blog-content {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 16px;
+  line-height: 1.85;
+  color: var(--mid);
+}
+
+.blog-content h2 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(26px, 4vw, 38px);
+  letter-spacing: -.01em;
+  color: var(--ink);
+  margin: 56px 0 20px;
+  line-height: 1;
+}
+.blog-content h2:first-child { margin-top: 0; }
+
+.blog-content h3 {
+  font-family: 'Syne', sans-serif;
+  font-size: 18px;
+  font-weight: 800;
+  color: var(--ink);
+  margin: 36px 0 14px;
+}
+
+.blog-content p {
+  margin-bottom: 20px;
+  font-weight: 300;
+}
+
+.blog-content a {
+  color: var(--accent);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.blog-content strong {
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.blog-content ul,
+.blog-content ol {
+  margin: 0 0 24px 0;
+  padding-left: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.blog-content ul li {
+  padding-left: 20px;
+  position: relative;
+  font-weight: 300;
+}
+.blog-content ul li::before {
+  content: '—';
+  position: absolute;
+  left: 0;
+  color: var(--accent);
+}
+
+.blog-content ol { counter-reset: li; }
+.blog-content ol li {
+  padding-left: 28px;
+  position: relative;
+  font-weight: 300;
+  counter-increment: li;
+}
+.blog-content ol li::before {
+  content: counter(li) '.';
+  position: absolute;
+  left: 0;
+  color: var(--accent);
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 18px;
+  line-height: 1.4;
+}
+
+.blog-content pre {
+  background: var(--ink);
+  border-left: 3px solid var(--accent);
+  border-radius: 0;
+  padding: 24px 28px;
+  overflow-x: auto;
+  margin: 28px 0;
+  font-size: 13px;
+  line-height: 1.7;
+}
+
+.blog-content pre code {
+  font-family: 'Courier New', 'Monaco', monospace;
+  color: #E8E2D6;
+  background: none;
+  padding: 0;
+  font-size: inherit;
+}
+
+.blog-content code {
+  font-family: 'Courier New', 'Monaco', monospace;
+  background: var(--light);
+  color: var(--accent);
+  padding: 2px 7px;
+  font-size: 13px;
+  border-radius: 2px;
+}
+
+.blog-content blockquote {
+  border-left: 3px solid var(--accent);
+  margin: 32px 0;
+  padding: 16px 24px;
+  background: var(--light);
+  font-family: 'DM Serif Display', serif;
+  font-style: italic;
+  font-size: 18px;
+  color: var(--ink);
+  line-height: 1.6;
+}
+
+.blog-content img {
+  width: 100%;
+  height: auto;
+  margin: 28px 0;
+  display: block;
+}
+
+@media (max-width: 767px) {
+  .blog-content h2 { font-size: clamp(24px, 7vw, 32px); margin: 40px 0 16px; }
+  .blog-content pre { padding: 16px; font-size: 12px; margin: 20px 0; }
+  .blog-content blockquote { font-size: 16px; padding: 14px 18px; }
+}
+
+@keyframes marqueeR {
+  0%   { transform: translateX(-50%); }
+  100% { transform: translateX(0); }
+}
+
+@keyframes bounceRight {
+  0%,100% { transform: translateX(0); }
+  50%      { transform: translateX(8px); }
+}
