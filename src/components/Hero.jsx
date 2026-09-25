@@ -37,13 +37,13 @@ export default function Hero() {
         </h1>
         <div style={{fontFamily:"'Syne',sans-serif",fontSize:'13px',fontWeight:600,letterSpacing:'.2em',textTransform:'uppercase',color:'var(--warm)',marginBottom:'20px'}}>Software Engineer</div>
         <p style={{fontSize:'15px',fontWeight:300,color:'var(--mid)',maxWidth: isMobile ? '100%' : '420px',margin:'0 0 32px',lineHeight:1.8}}>
-          4.5+ years of experience delivering scalable WordPress, WooCommerce, Drupal, and Angular solutions with clean code, CMS architecture, performance optimization, SEO, and accessibility in mind.
+          5+ years of experience delivering scalable WordPress, WooCommerce, Drupal, and Angular solutions with clean code, CMS architecture, performance optimization, SEO, and accessibility in mind.
         </p>
 
         {/* Mobile stats (shown only on mobile) */}
         {isMobile && (
           <div style={{display:'grid',gridTemplateColumns:'repeat(3,1fr)',gap:'1px',background:'var(--light)',border:'1px solid var(--light)',marginBottom:'32px'}}>
-            {[['4.5+','Years'],['03','Companies'],['CMS','Specialist']].map(([n,l],i) => (
+            {[['5+','Years'],['03','Companies'],['CMS','Specialist']].map(([n,l],i) => (
               <div key={i} style={{background:'var(--cream)',padding:'16px 12px',textAlign:'center'}}>
                 <div style={{fontFamily:"'Bebas Neue',sans-serif",fontSize:'36px',lineHeight:1,color:'var(--ink)'}}>{n}</div>
                 <div style={{fontFamily:"'Syne',sans-serif",fontSize:'9px',fontWeight:700,letterSpacing:'.1em',textTransform:'uppercase',color:'var(--mid)',marginTop:'4px'}}>{l}</div>
@@ -67,7 +67,7 @@ export default function Hero() {
         <div ref={ref2} style={{position:'relative',zIndex:1,paddingTop:'80px',display:'flex',flexDirection:'column',alignItems:'flex-end',justifyContent:'center',gap:'40px'}}>
           <div style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:'1px',background:'var(--light)',border:'1px solid var(--light)',width:'320px'}}>
             {[
-              {num:'4.5+',label:'Years\nExperience'},
+              {num:'5+',label:'Years\nExperience'},
               {num:'03',label:'Companies\nWorked'},
               {num:'CMS',label:'WordPress\nWooCommerce'},
             ].map((s,i) => (

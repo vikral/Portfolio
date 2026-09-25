@@ -1,7 +1,9 @@
-import React, { useEffect, useRef } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { useParams, Link } from 'react-router-dom'
 import { blogs } from '../data/blogs.js'
 import { useResponsive } from '../hooks/useResponsive.js'
+import { usePageMeta } from '../hooks/usePageMeta.js'
+import { SITE, absoluteUrl } from '../seo/siteConfig.js'
 import ScrollProgress from '../components/ScrollProgress.jsx'
 import Footer from '../components/Footer.jsx'
 import Cursor from '../components/Cursor.jsx'
@@ -154,14 +156,79 @@ export default function BlogDetail() {
   const { isMobile, isTablet } = useResponsive()
   const px = isMobile ? '20px' : isTablet ? '32px' : '48px'
   const contentRef = useRef(null)
+  const [tocOpen, setTocOpen] = useState(false)
+  const [activeId, setActiveId] = useState('')
 
   const blog  = blogs.find(b => b.id === id)
-  const index = blogs.findIndex(b => b.id === id)
-  const prev  = index > 0 ? blogs[index - 1] : null
-  const next  = index < blogs.length - 1 ? blogs[index + 1] : null
+  const sortedBlogs = [...blogs].sort((a, b) => new Date(b.date) - new Date(a.date))
+  const index = sortedBlogs.findIndex(b => b.id === id)
+  const prev  = index > 0 ? sortedBlogs[index - 1] : null
+  const next  = index < sortedBlogs.length - 1 ? sortedBlogs[index + 1] : null
 
   useEffect(() => { window.scrollTo(0, 0) }, [id])
   useCopyButtons(contentRef, id)
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) setActiveId(entry.target.id)
+        })
+      },
+      { rootMargin: '0px 0px -80% 0px' }
+    )
+
+    const headings = contentRef.current?.querySelectorAll('h2')
+    headings?.forEach((h) => observer.observe(h))
+
+    return () => observer.disconnect()
+  }, [blog])
+
+  usePageMeta(
+    blog
+      ? {
+          title: blog.title,
+          description: blog.excerpt,
+          path: `/blog/${blog.id}`,
+          type: 'article',
+          image: blog.cover || undefined,
+          imageAlt: blog.cover ? blog.title : undefined,
+          jsonLd: {
+            '@context': 'https://schema.org',
+            '@type': 'BlogPosting',
+            headline: blog.title,
+            description: blog.excerpt,
+            datePublished: blog.date,
+            dateModified: blog.date,
+            author: {
+              '@type': 'Person',
+              name: SITE.author,
+              url: absoluteUrl('/'),
+            },
+            publisher: {
+              '@type': 'Person',
+              name: SITE.author,
+              url: absoluteUrl('/'),
+            },
+            mainEntityOfPage: {
+              '@type': 'WebPage',
+              '@id': absoluteUrl(`/blog/${blog.id}`),
+            },
+            image: blog.cover || SITE.ogImage,
+            articleSection: blog.category,
+            keywords: [blog.category, 'web development', SITE.author].join(', '),
+            inLanguage: 'en',
+            url: absoluteUrl(`/blog/${blog.id}`),
+          },
+        }
+      : {
+          title: 'Post Not Found',
+          description: 'The requested blog post could not be found.',
+          path: `/blog/${id || ''}`,
+          noindex: true,
+          jsonLd: null,
+        }
+  )
 
   if (!blog) {
     return (
@@ -230,15 +297,112 @@ export default function BlogDetail() {
 
         {/* Article body */}
         <div style={{
-          maxWidth:'760px',
+          maxWidth:'1200px',
           margin:'0 auto',
+          display:'flex',
+          gap: isMobile ? '0' : '40px',
           padding: isMobile ? '48px 20px 60px' : '72px 48px 80px',
+          position:'relative',
         }}>
-          <div
-            ref={contentRef}
-            className="blog-content"
-            dangerouslySetInnerHTML={{ __html: blog.content }}
-          />
+          {/* Desktop TOC Sidebar */}
+          {!isMobile && (
+            <aside style={{
+              width:'240px',
+              position:'sticky',
+              top: isMobile ? '0' : '110px',
+              height: 'fit-content',
+              alignSelf:'start',
+            }}>
+              <div style={{
+                fontFamily:"'Syne',sans-serif",fontSize:'11px',fontWeight:700,letterSpacing:'.15em',textTransform:'uppercase',color:'var(--accent)',marginBottom:'16px',display:'flex',alignItems:'center',gap:'8px'
+              }}>
+                <span style={{width:'12px',height:'12px',background:'var(--accent)',borderRadius:'2px'}}/>
+                Table of Contents
+              </div>
+              <nav style={{display:'flex',flexDirection:'column',gap:'8px'}}>
+                {blog.content.match(/<h2>(.*?)<\/h2>/g)?.map((h, i) => {
+                  const text = h.replace(/<\/?h2>/g, '');
+                  const id = text.toLowerCase().replace(/\s+/g, '-');
+                  return (
+                    <a
+                      key={i}
+                      href={`#${id}`}
+                      style={{
+                        fontFamily:"'DM Sans',sans-serif",fontSize:'13px',color: activeId === id ? 'var(--ink)' : 'var(--mid)',
+                        textDecoration:'none',transition:'color .2s',display:'block',
+                        padding: '4px 0',borderLeft: activeId === id ? '2px solid var(--accent)' : '2px solid transparent',
+                        paddingLeft: activeId === id ? '12px' : '12px',
+                        fontWeight: activeId === id ? 600 : 400
+                      }}
+                    >
+                      {text}
+                    </a>
+                  );
+                })}
+              </nav>
+            </aside>
+          )}
+
+          <div style={{flex: 1, maxWidth:'760px'}}>
+            <div
+              ref={contentRef}
+              className="blog-content"
+              dangerouslySetInnerHTML={{
+                __html: blog.content.replace(/<h2>(.*?)<\/h2>/g, (match, p1) => {
+                  const id = p1.toLowerCase().replace(/\s+/g, '-');
+                  return `<h2 id="${id}">${p1}</h2>`;
+                })
+              }}
+            />
+          </div>
+
+          {/* Mobile TOC FAB & Overlay */}
+          {isMobile && (
+            <>
+              <button
+                onClick={() => setTocOpen(true)}
+                style={{
+                  position:'fixed',bottom:'30px',right:'20px',zIndex:200,
+                  width:'48px',height:'48px',borderRadius:'50%',background:'var(--accent)',
+                  color:'#fff',border:'none',cursor:'pointer',boxShadow:'0 4px 12px rgba(0,0,0,0.2)',
+                  display:'flex',alignItems:'center',justifyContent:'center'
+                }}
+              >
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+              </button>
+              {tocOpen && (
+                <div style={{
+                  position:'fixed',top:0,left:0,right:0,bottom:0,zIndex:300,
+                  background:'var(--cream)',padding:'60px 24px',
+                  display:'flex',flexDirection:'column',gap:'24px'
+                }}>
+                  <div style={{display:'flex',justifyContent:'space-between',alignItems:'center',marginBottom:'20px'}}>
+                    <div style={{fontFamily:"'Syne',sans-serif",fontSize:'16px',fontWeight:700,letterSpacing:'.1em',textTransform:'uppercase',color:'var(--ink)'}}>Contents</div>
+                    <button onClick={() => setTocOpen(false)} style={{background:'none',border:'none',fontSize:'24px',cursor:'pointer',color:'var(--ink)'}}>&times;</button>
+                  </div>
+                  <nav style={{display:'flex',flexDirection:'column',gap:'16px'}}>
+                    {blog.content.match(/<h2>(.*?)<\/h2>/g)?.map((h, i) => {
+                      const text = h.replace(/<\/?h2>/g, '');
+                      const id = text.toLowerCase().replace(/\s+/g, '-');
+                      return (
+                        <a
+                          key={i}
+                          href={`#${id}`}
+                          onClick={() => setTocOpen(false)}
+                          style={{
+                            fontFamily:"'Syne',sans-serif",fontSize:'18px',fontWeight:600,color: activeId === id ? 'var(--accent)' : 'var(--ink)',
+                            textDecoration:'none',borderBottom:'1px solid var(--light)',paddingBottom:'12px'
+                          }}
+                        >
+                          {text}
+                        </a>
+                      );
+                    })}
+                  </nav>
+                </div>
+              )}
+            </>
+          )}
         </div>
 
         {/* Divider */}

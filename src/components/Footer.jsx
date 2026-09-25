@@ -16,7 +16,7 @@ export default function Footer() {
       <div style={{fontFamily:"'Bebas Neue',sans-serif",fontSize:'24px',letterSpacing:'.1em',color:'var(--cream)'}}>Vikral</div>
       {!isMobile && (
         <ul style={{display:'flex',gap:'28px',listStyle:'none',alignItems:'center'}}>
-          {[['/#','Home'],['/#about','About'],['/#work','Projects'],['/#services','Services'],['/#contact','Contact']].map(([href,label]) => (
+          {[['/#','Home'],['/know-me','Know Me'],['/#about','About'],['/#work','Projects'],['/#services','Services'],['/#contact','Contact']].map(([href,label]) => (
             <li key={label}>
               <a href={href} style={{fontFamily:"'Syne',sans-serif",fontSize:'11px',fontWeight:600,letterSpacing:'.15em',textTransform:'uppercase',color:'#555',textDecoration:'none'}}>{label}</a>
             </li>
@@ -26,7 +26,7 @@ export default function Footer() {
           </li>
         </ul>
       )}
-      <div style={{fontSize:'12px',color:'#444'}}>© 2025 vikral. All rights reserved.</div>
+      <div style={{fontSize:'12px',color:'#444'}}>© 2026 vikral. All rights reserved.</div>
     </footer>
   )
 }

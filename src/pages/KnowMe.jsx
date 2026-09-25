@@ -1,6 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useResponsive } from '../hooks/useResponsive.js'
+import { usePageMeta } from '../hooks/usePageMeta.js'
+import { SITE, absoluteUrl } from '../seo/siteConfig.js'
 import Cursor from '../components/Cursor.jsx'
 import Footer from '../components/Footer.jsx'
 
@@ -316,16 +318,16 @@ function QuoteSlider() {
 
 /* ── Horizontal scroll section ── */
 const hCards = [
-  { num:'01', label:'First Language',   value:'PHP',                    sub:'Learnt in a hostel room at 1AM.' },
+  { num:'01', label:'First Obsession',   value:'How Websites Work',                    sub:'It started with staring at websites, not using them.' },
   { num:'02', label:'Favourite Editor', value:'VS Code',                sub:'Dracula theme. Always.' },
   { num:'03', label:'Lines of Code',    value:'∞',                      sub:'And counting. Every night.' },
   { num:'04', label:'Cups of Chai',     value:'3/day',                  sub:'Minimum. Non-negotiable.' },
-  { num:'05', label:'Based In',         value:'Noida, UP',           sub:'Born Bihari. Noida raised. Forever both.' },
+  { num:'05', label:'Based In',         value:'Noida, UP',           sub:'Born Bihari. Living in Noida. Still figuring things out.' },
   { num:'06', label:'Rides Taken',      value:'Countless',              sub:'Best thinking happens on the road.' },
   { num:'07', label:'Favourite Film',   value:'Kung Fu Panda',          sub:'Po is the most relatable character ever written.' },
   { num:'08', label:'Core Belief',      value:'Ship it.',               sub:'Perfect is the enemy of live.' },
   { num:'09', label:'Work Hours',       value:'Post Midnight',          sub:'Noida sleeps. I build.' },
-  { num:'10', label:'Stack of Choice',  value:'WordPress + Angular',    sub:'Four years deep. Still learning.' },
+  { num:'10', label:'Stack of Choice',  value:'WordPress + Angular',    sub:'Five years deep. Still learning.' },
 ]
 
 function HorizontalScroll() {
@@ -511,6 +513,29 @@ export default function KnowMe() {
 
   useEffect(() => { window.scrollTo(0,0) }, [])
 
+  usePageMeta({
+    title: 'Know Me — Beyond the Resume',
+    description:
+      'Get to know Shubham Kumar beyond the portfolio — hobbies, books, films, values, and the person behind the code.',
+    path: '/know-me',
+    type: 'profile',
+    jsonLd: {
+      '@context': 'https://schema.org',
+      '@type': 'ProfilePage',
+      name: 'Know Me — Shubham Kumar',
+      description:
+        'Personal side of Software Engineer Shubham Kumar — interests, books, films, and values.',
+      url: absoluteUrl('/know-me'),
+      mainEntity: {
+        '@type': 'Person',
+        name: SITE.author,
+        alternateName: 'Shubham Vikral',
+        url: absoluteUrl('/'),
+        jobTitle: 'Software Engineer & WordPress Developer',
+      },
+    },
+  })
+
   const hobbies = ['Riding Bikes','Long Drives','Exploring Noida','Hindi Literature','Cinema','Code at Night','Chai Runs','Hill Riding']
 
   const books = [
@@ -529,7 +554,6 @@ export default function KnowMe() {
   ]
 
   const philosophy = [
-    { num:'I',   title:'Karna over Arjun',   body:"Dinkar's Rashmirathi shaped how I see loyalty and sacrifice. Fight your battle fully — win or lose — not half-heartedly." },
     { num:'II',  title:'Depth Over Width',    body:"I'd rather understand WordPress so deeply I could rebuild it than know 12 frameworks at surface level. Mastery takes time." },
     { num:'III', title:'Build for Humans',    body:"Code is a medium. The goal is always the person on the other end of the screen. Does this make someone's life easier?" },
     { num:'IV',  title:'Ride to Think',       body:"My best solutions come on a bike on an empty Noida road at dawn. Stillness and speed simultaneously. That's where ideas live." },
@@ -587,7 +611,7 @@ export default function KnowMe() {
             </FadeIn>
             <FadeIn delay={200} style={{display:'grid',gridTemplateColumns: isMobile?'1fr':'1fr 1fr',gap: isMobile?'32px':'80px',alignItems:'end',paddingBottom: isMobile?'48px':'80px'}}>
               <p style={{fontSize:'clamp(15px,1.6vw,18px)',fontWeight:300,color:'var(--mid)',lineHeight:1.9,maxWidth:'440px'}}>
-                Not just a developer. A reader, a rider, a builder. Born Bihari, raised in Noida. This is the version of me that doesn't fit on a resume.
+                Not just a developer. A reader, a rider, a builder. Born Bihari, living in Noida. This is the version of me that doesn't fit on a resume.
               </p>
               <QuoteSlider />
             </FadeIn>
@@ -601,7 +625,7 @@ export default function KnowMe() {
         <section style={{background:'var(--ink)',padding:`${pyLg} ${px}`}}>
           <div style={{display:'grid',gridTemplateColumns: isMobile ? 'repeat(2,1fr)' : 'repeat(4,1fr)',gap:'1px',background:'#1a1a1a',border:'1px solid #1a1a1a'}}>
             {[
-              { num:4,  suf:'+', label:'Years\nCoding' },
+              { num:5,  suf:'+', label:'Years\nCoding' },
               { num:15, suf:'+', label:'Projects\nShipped' },
               { num:3,  suf:'',  label:'Companies\nWorked' },
               { num:27, suf:'',  label:'Years\nOld' },
@@ -628,31 +652,28 @@ export default function KnowMe() {
               <h2 style={{fontFamily:"'Bebas Neue',sans-serif",fontSize:'clamp(44px,6vw,80px)',lineHeight:.9,letterSpacing:'-.01em',marginBottom:'32px'}}>
                 How It All<br/><em style={{fontFamily:"'DM Serif Display',serif",fontStyle:'italic',color:'var(--accent)'}}>Started</em>
               </h2>
-              {/* Image placeholder */}
-              <div style={{
-                width:'100%',maxWidth:'360px',
-                aspectRatio:'4/3',
-                background:'linear-gradient(135deg,#1a1a1a,#111)',
-                border:'1px solid #222',
-                display:'flex',flexDirection:'column',
-                alignItems:'center',justifyContent:'center',
-                gap:'12px',
-                position:'relative',overflow:'hidden',
-              }}>
-                <div style={{position:'absolute',inset:0,background:'linear-gradient(135deg,rgba(232,75,43,.08),transparent)'}}/>
-                {/* Replace src with your actual image */}
-                {/* <img src="/images/story.jpg" alt="My story" style={{width:'100%',height:'100%',objectFit:'cover',display:'block'}}/> */}
-                <span style={{fontSize:'32px',position:'relative',zIndex:1}}>📸</span>
-                <span style={{fontFamily:"'Syne',sans-serif",fontSize:'9px',fontWeight:700,letterSpacing:'.2em',textTransform:'uppercase',color:'#333',position:'relative',zIndex:1}}>Add your photo here</span>
-                <span style={{fontFamily:"'Syne',sans-serif",fontSize:'8px',color:'#222',position:'relative',zIndex:1}}>/images/story.jpg</span>
-              </div>
+                <div style={{
+                  width:'100%',maxWidth:'360px',
+                  aspectRatio:'1/1',
+                  overflow:'hidden',
+                  position:'relative',
+                  border:'1px solid #222',
+                  borderRadius:'24px',
+                  display:'flex',flexDirection:'column',
+                  alignItems:'center',justifyContent:'center',
+                  gap:'12px',
+                  boxShadow: '0 20px 40px rgba(0,0,0,0.3)',
+                }}>
+                  <div style={{position:'absolute',inset:0,background:'linear-gradient(135deg,rgba(232,75,43,.1),transparent)',zIndex:1,pointerEvents:'none'}}/>
+                  <img src="/about-image.png" alt="My story" style={{width:'100%',height:'100%',objectFit:'cover',objectPosition:'center top',display:'block',transform:'scaleX(-1)'}}/>
+                </div>
             </FadeIn>
             <div style={{display:'flex',flexDirection:'column',gap:'28px'}}>
               {[
                 { marker:'01', text:"As a kid in Noida, I'd stare at websites on our family's slow internet — not at the content. At the pages themselves. How did buttons glow? Who made this? That childlike \"how?\" never left me." },
                 { marker:'02', text:"College hostel changed everything. My senior — final year CS — showed me my first <div> tag at 1AM on his laptop. Something clicked. Not the code. The power. You could build a world from nothing but text." },
                 { marker:'03', text:"I stayed up every night after that. Copy-pasting HTML, breaking CSS, Googling why my background wouldn't change. The frustration was addictive. First time a layout looked like what I imagined — I was gone." },
-                { marker:'04', text:"4 years. 3 companies. 15+ projects. That Bihari kid staring at websites didn't know he was looking at his future." },
+                { marker:'04', text:"5+ years. 3 companies. 15+ projects. That Bihari kid staring at websites didn't know he was looking at his future." },
               ].map((item,i) => (
                 <FadeIn key={i} delay={i*80}>
                   <div style={{display:'flex',gap:'20px',alignItems:'flex-start'}}>
@@ -697,70 +718,75 @@ export default function KnowMe() {
         {/* ══ HORIZONTAL SCROLL ══ */}
         <HorizontalScroll />
 
-        {/* ══ HOBBIES — ink ══ */}
-        <section style={{background:'var(--ink)',color:'var(--cream)',padding:`${pyLg} ${px}`,borderTop:'1px solid #1a1a1a'}}>
-          <FadeIn>
-            <div style={{fontFamily:"'Syne',sans-serif",fontSize:'11px',fontWeight:700,letterSpacing:'.3em',textTransform:'uppercase',color:'var(--accent)',display:'flex',alignItems:'center',gap:'12px',marginBottom:'20px'}}>
-              <span style={{width:'24px',height:'1px',background:'var(--accent)',display:'block'}}/>
-              Outside the Code
-            </div>
-            <h2 style={{fontFamily:"'Bebas Neue',sans-serif",fontSize:'clamp(44px,7vw,90px)',lineHeight:.9,letterSpacing:'-.01em',marginBottom:'48px'}}>
-              Hobbies &<br/><em style={{fontFamily:"'DM Serif Display',serif",fontStyle:'italic',color:'var(--accent)'}}>Interests</em>
-            </h2>
-          </FadeIn>
-          <div style={{display:'grid',gridTemplateColumns:isMobile?'1fr':'repeat(2,1fr)',gap:'2px',background:'#1a1a1a',border:'1px solid #1a1a1a'}}>
-            {/* Bikes — tall */}
-            <FadeIn style={{gridRow:isMobile?'auto':'span 2'}}>
-              <div style={{background:'#0d0d0d',padding:isMobile?'40px 24px':'56px 48px',height:'100%',position:'relative',overflow:'hidden',display:'flex',flexDirection:'column',gap:'20px'}}>
-                <div style={{position:'absolute',bottom:'-20px',right:'-10px',fontFamily:"'Bebas Neue',sans-serif",fontSize:'clamp(80px,12vw,160px)',color:'#111',lineHeight:1,pointerEvents:'none',userSelect:'none'}}>RIDE</div>
-                {/* Bike image placeholder */}
-                <div style={{width:'100%',aspectRatio:'16/9',background:'linear-gradient(135deg,#161616,#0a0a0a)',border:'1px solid #1f1f1f',display:'flex',flexDirection:'column',alignItems:'center',justifyContent:'center',gap:'8px',position:'relative',overflow:'hidden',flexShrink:0}}>
-                  <div style={{position:'absolute',inset:0,background:'linear-gradient(135deg,rgba(232,75,43,.06),transparent)'}}/>
-                  {/* Replace with: <img src="/images/bike.jpg" alt="My ride" style={{width:'100%',height:'100%',objectFit:'cover'}}/> */}
-                  <span style={{fontSize:'40px',position:'relative',zIndex:1}}>🏍️</span>
-                  <span style={{fontFamily:"'Syne',sans-serif",fontSize:'8px',color:'#222',position:'relative',zIndex:1,letterSpacing:'.15em',textTransform:'uppercase'}}>Add bike photo → /images/bike.jpg</span>
+            {/* ══ HOBBIES — ink ══ */}
+            <section style={{background:'var(--ink)',color:'var(--cream)',padding:`${pyLg} ${px}`,borderTop:'1px solid #1a1a1a'}}>
+              <FadeIn>
+                <div style={{fontFamily:"'Syne',sans-serif",fontSize:'11px',fontWeight:700,letterSpacing:'.3em',textTransform:'uppercase',color:'var(--accent)',display:'flex',alignItems:'center',gap:'12px',marginBottom:'20px'}}>
+                  <span style={{width:'24px',height:'1px',background:'var(--accent)',display:'block'}}/>
+                  Outside the Code
                 </div>
-                <div style={{position:'relative',zIndex:1}}>
-                  <div style={{fontFamily:"'Bebas Neue',sans-serif",fontSize:'clamp(28px,4vw,44px)',color:'var(--cream)',marginBottom:'12px',lineHeight:1}}>Bikes & Long Drives</div>
-                  <p style={{fontSize:'14px',color:'#666',fontWeight:300,lineHeight:1.9,maxWidth:'400px'}}>
-                    There's a specific freedom on a Noida highway before the city wakes up. No notifications. No deadlines. Just road, engine, and thoughts. I ride to reset — my meditation and most productive thinking time.
-                  </p>
-                  <div style={{marginTop:'20px',display:'flex',gap:'8px',flexWrap:'wrap'}}>
-                    {['Highway Rides','Hill Drives','Night Routes','Dawn Escapes'].map(t=>(
-                      <span key={t} style={{fontFamily:"'Syne',sans-serif",fontSize:'9px',fontWeight:700,letterSpacing:'.15em',textTransform:'uppercase',border:'1px solid #222',color:'#444',padding:'5px 12px'}}>{t}</span>
-                    ))}
+                <h2 style={{fontFamily:"'Bebas Neue',sans-serif",fontSize:'clamp(44px,7vw,90px)',lineHeight:.9,letterSpacing:'-.01em',marginBottom:'48px'}}>
+                  Hobbies &<br/><em style={{fontFamily:"'DM Serif Display',serif",fontStyle:'italic',color:'var(--accent)'}}>Interests</em>
+                </h2>
+              </FadeIn>
+              <div style={{display:'grid',gridTemplateColumns:isMobile?'1fr':'repeat(2,1fr)',gap:'2px',background:'#1a1a1a',border:'1px solid #1a1a1a'}}>
+                {/* Bikes — tall */}
+                <FadeIn style={{gridRow:isMobile?'auto':'span 2'}}>
+                  <div style={{background:'#0d0d0d',padding:isMobile?'40px 24px':'56px 48px',height:'100%',position:'relative',overflow:'hidden',display:'flex',flexDirection:'column',gap:'20px'}}>
+                    <div style={{position:'absolute',bottom:'-20px',right:'-10px',fontFamily:"'Bebas Neue',sans-serif",fontSize:'clamp(80px,12vw,160px)',color:'#111',lineHeight:1,pointerEvents:'none',userSelect:'none'}}>DRIVE</div>
+                    {/* Bike image placeholder */}
+                    <div style={{width:'100%',aspectRatio:'16/9',background:'linear-gradient(135deg,#161616,#0a0a0a)',border:'1px solid #1f1f1f',display:'flex',flexDirection:'column',alignItems:'center',justifyContent:'center',gap:'8px',position:'relative',overflow:'hidden',flexShrink:0}}>
+                      <div style={{position:'absolute',inset:0,background:'linear-gradient(135deg,rgba(232,75,43,.06),transparent)'}}/>
+                      {/* Replace with: <img src="/images/bike.jpg" alt="My ride" style={{width:'100%',height:'100%',objectFit:'cover'}}/> */}
+                      <span style={{fontSize:'40px',position:'relative',zIndex:1}}>🏍️</span>
+                      <span style={{fontFamily:"'Syne',sans-serif",fontSize:'8px',color:'#222',position:'relative',zIndex:1,letterSpacing:'.15em',textTransform:'uppercase'}}>Add bike photo → /images/bike.jpg</span>
+                    </div>
+                    <div style={{position:'relative',zIndex:1}}>
+                      <div style={{fontFamily:"'Bebas Neue',sans-serif",fontSize:'clamp(28px,4vw,44px)',color:'var(--cream)',marginBottom:'12px',lineHeight:1}}>Mountain Drives & Open Roads</div>
+                      <p style={{fontSize:0,color:'#666',fontWeight:300,lineHeight:1.9,maxWidth:'400px'}}>
+                        <span style={{fontSize:'14px'}}>Long drives toward the mountains are where I reset. The road gets quieter, the air changes, and the next bend asks for your full attention. It is time away from notifications and deadlines, with enough space to think clearly and return with fresh perspective.</span>
+                        There's a specific freedom on a Noida highway before the city wakes up. No notifications. No deadlines. Just road, engine, and thoughts. I ride to reset — my meditation and most productive thinking time.
+                      </p>
+                      <div style={{marginTop:'20px',display:'flex',gap:'8px',flexWrap:'wrap'}}>
+                        {['Mountain Roads','Highway Drives','Dawn Starts','Weekend Escapes'].map(t=>(
+                          <span key={t} style={{fontFamily:"'Syne',sans-serif",fontSize:'9px',fontWeight:700,letterSpacing:'.15em',textTransform:'uppercase',border:'1px solid #222',color:'#444',padding:'5px 12px'}}>{t}</span>
+                        ))}
+                      </div>
+                    </div>
                   </div>
-                </div>
+                </FadeIn>
+                {/* Books */}
+                <FadeIn delay={100}>
+                  <div style={{background:'#111',padding:isMobile?'36px 24px':'44px 40px',borderBottom:'2px solid #1a1a1a',display:'flex',flexDirection:'column',gap:'16px'}}>
+                    {/* Book image placeholder */}
+                    <div style={{width:'100%',aspectRatio:'16/7',background:'#0d0d0d',border:'1px solid #1f1f1f',display:'flex',alignItems:'center',justifyContent:'center',gap:'8px',overflow:'hidden',flexShrink:0}}>
+                      {/* <img src="/images/books.jpg" alt="My books" style={{width:'100%',height:'100%',objectFit:'cover'}}/> */}
+                      <span style={{fontSize:'24px'}}>📖</span>
+                      <span style={{fontFamily:"'Syne',sans-serif",fontSize:'8px',color:'#222',letterSpacing:'.15em',textTransform:'uppercase'}}>/images/books.jpg</span>
+                    </div>
+                    <div style={{fontFamily:"'Bebas Neue',sans-serif",fontSize:'clamp(22px,3vw,32px)',color:'var(--cream)',lineHeight:1}}>Hindi Literature & Beyond</div>
+                    <p style={{fontSize:'14px',color:'#555',fontWeight:300,lineHeight:1.8}}>Gunaho Ka Devta broke me open at 19. Rashmirathi gave me Karna. Literature does what no tutorial can — it changes how you see everything.</p>
+                  </div>
+                </FadeIn>
+                <FadeIn delay={180}>
+                  <div style={{background:'#131313',padding:isMobile?'36px 24px':'44px 40px',height:'100%',display:'flex',flexDirection:'column',justifyContent:'space-between',gap:'28px',position:'relative',overflow:'hidden'}}>
+                    <div style={{position:'absolute',right:'-8px',bottom:'-26px',fontFamily:"'Bebas Neue',sans-serif",fontSize:'100px',lineHeight:1,color:'#1a1a1a',pointerEvents:'none'}}>ROAD</div>
+                    <div style={{position:'relative',zIndex:1}}>
+                      <div style={{fontFamily:"'Syne',sans-serif",fontSize:'10px',fontWeight:700,letterSpacing:'.18em',textTransform:'uppercase',color:'var(--accent)',marginBottom:'12px'}}>Drive Ritual</div>
+                      <div style={{fontFamily:"'Bebas Neue',sans-serif",fontSize:'clamp(24px,3vw,34px)',color:'var(--cream)',lineHeight:1}}>The Best Route Has Room to Breathe</div>
+                    </div>
+                    <div style={{position:'relative',zIndex:1,display:'grid',gridTemplateColumns:'repeat(3,1fr)',gap:'12px',paddingTop:'20px',borderTop:'1px solid #242424'}}>
+                      {[['Route','Toward the hills'],['Playlist','Windows down'],['Goal','Clear head']].map(([label,value]) => (
+                        <div key={label}>
+                          <div style={{fontFamily:"'Syne',sans-serif",fontSize:'8px',fontWeight:700,letterSpacing:'.14em',textTransform:'uppercase',color:'#666',marginBottom:'6px'}}>{label}</div>
+                          <div style={{fontFamily:"'DM Serif Display',serif",fontSize:'14px',fontStyle:'italic',color:'#bbb',lineHeight:1.25}}>{value}</div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </FadeIn>
               </div>
-            </FadeIn>
-            {/* Books */}
-            <FadeIn delay={100}>
-              <div style={{background:'#111',padding:isMobile?'36px 24px':'44px 40px',borderBottom:'2px solid #1a1a1a',display:'flex',flexDirection:'column',gap:'16px'}}>
-                {/* Book image placeholder */}
-                <div style={{width:'100%',aspectRatio:'16/7',background:'#0d0d0d',border:'1px solid #1f1f1f',display:'flex',alignItems:'center',justifyContent:'center',gap:'8px',overflow:'hidden',flexShrink:0}}>
-                  {/* <img src="/images/books.jpg" alt="My books" style={{width:'100%',height:'100%',objectFit:'cover'}}/> */}
-                  <span style={{fontSize:'24px'}}>📖</span>
-                  <span style={{fontFamily:"'Syne',sans-serif",fontSize:'8px',color:'#222',letterSpacing:'.15em',textTransform:'uppercase'}}>/images/books.jpg</span>
-                </div>
-                <div style={{fontFamily:"'Bebas Neue',sans-serif",fontSize:'clamp(22px,3vw,32px)',color:'var(--cream)',lineHeight:1}}>Hindi Literature & Beyond</div>
-                <p style={{fontSize:'14px',color:'#555',fontWeight:300,lineHeight:1.8}}>Gunaho Ka Devta broke me open at 19. Rashmirathi gave me Karna. Literature does what no tutorial can — it changes how you see everything.</p>
-              </div>
-            </FadeIn>
-            {/* Cinema */}
-            <FadeIn delay={200}>
-              <div style={{background:'#0a0a0a',padding:isMobile?'36px 24px':'44px 40px',display:'flex',flexDirection:'column',gap:'16px'}}>
-                {/* Cinema image placeholder */}
-                <div style={{width:'100%',aspectRatio:'16/7',background:'#0d0d0d',border:'1px solid #1f1f1f',display:'flex',alignItems:'center',justifyContent:'center',gap:'8px',overflow:'hidden',flexShrink:0}}>
-                  {/* <img src="/images/cinema.jpg" alt="Cinema" style={{width:'100%',height:'100%',objectFit:'cover'}}/> */}
-                  <span style={{fontSize:'24px'}}>🎬</span>
-                  <span style={{fontFamily:"'Syne',sans-serif",fontSize:'8px',color:'#222',letterSpacing:'.15em',textTransform:'uppercase'}}>/images/cinema.jpg</span>
-                </div>
-                <div style={{fontFamily:"'Bebas Neue',sans-serif",fontSize:'clamp(22px,3vw,32px)',color:'var(--cream)',lineHeight:1}}>Cinema That Hits Different</div>
-                <p style={{fontSize:'14px',color:'#555',fontWeight:300,lineHeight:1.8}}>From Po learning to believe in himself to Devdas self-destructing beautifully — I watch for the feeling, not the plot.</p>
-              </div>
-            </FadeIn>
-          </div>
-        </section>
+            </section>
 
         {/* ══ BOOKS — cream ══ */}
         <section style={{background:'var(--cream)',padding:`${pyLg} ${px}`,borderTop:'1px solid var(--light)'}}>

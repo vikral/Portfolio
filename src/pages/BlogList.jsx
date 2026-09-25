@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom'
 import { blogs } from '../data/blogs.js'
 import { useResponsive } from '../hooks/useResponsive.js'
 import { useFadeIn } from '../hooks/useFadeIn.js'
+import { usePageMeta } from '../hooks/usePageMeta.js'
+import { SITE, absoluteUrl } from '../seo/siteConfig.js'
 import Footer from '../components/Footer.jsx'
 import Cursor from '../components/Cursor.jsx'
 
@@ -24,23 +26,57 @@ const ALL = 'All'
 
 export default function BlogList() {
   const { isMobile, isTablet } = useResponsive()
-    useEffect(() => {
+  useEffect(() => {
     window.scrollTo(0, 0)
   }, [])
+
+  usePageMeta({
+    title: 'Blog — Web Development, WordPress & Engineering Notes',
+    description:
+      'Articles on WordPress, Angular, PHP, WooCommerce, performance, accessibility, and modern web development by Software Engineer Shubham Kumar.',
+    path: '/blog',
+    type: 'website',
+    jsonLd: {
+      '@context': 'https://schema.org',
+      '@type': 'Blog',
+      '@id': absoluteUrl('/blog'),
+      name: 'Vikral Blog',
+      description:
+        'Web development articles on WordPress, Angular, PHP, performance, and engineering best practices.',
+      url: absoluteUrl('/blog'),
+      inLanguage: 'en',
+      author: {
+        '@type': 'Person',
+        name: SITE.author,
+        url: absoluteUrl('/'),
+      },
+      blogPost: blogs.map((b) => ({
+        '@type': 'BlogPosting',
+        headline: b.title,
+        description: b.excerpt,
+        datePublished: b.date,
+        url: absoluteUrl(`/blog/${b.id}`),
+        author: { '@type': 'Person', name: SITE.author },
+      })),
+    },
+  })
+
   const px = isMobile ? '20px' : isTablet ? '32px' : '48px'
   const ref1 = useFadeIn(0)
   const ref2 = useFadeIn(150)
 
-  const categories = [ALL, ...Array.from(new Set(blogs.map(b => b.category)))]
+  const categories = [ALL, ...Array.from(new Set(blogs.map(b => b.category))).sort((a, b) => a.localeCompare(b))]
   const [active, setActive] = useState(ALL)
   const [search, setSearch] = useState('')
 
-  const filtered = blogs.filter(b => {
-    const matchCat  = active === ALL || b.category === active
-    const matchText = b.title.toLowerCase().includes(search.toLowerCase()) ||
-                      b.excerpt.toLowerCase().includes(search.toLowerCase())
-    return matchCat && matchText
-  })
+  const filtered = blogs
+    .filter(b => {
+      const matchCat  = active === ALL || b.category === active
+      const matchText = b.title.toLowerCase().includes(search.toLowerCase()) ||
+                        b.excerpt.toLowerCase().includes(search.toLowerCase())
+      return matchCat && matchText
+    })
+    .sort((a, b) => new Date(b.date) - new Date(a.date))
 
   return (
     <>
