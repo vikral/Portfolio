@@ -709,7 +709,8 @@ export default function KnowMe() {
     { num:'III', title:'Build for Humans',    body:"Code is a medium. The goal is always the person on the other end of the screen. Does this make someone's life easier?" },
     { num:'IV',  title:'Ride to Think',       body:"My best solutions come on a bike on an empty Noida road at dawn. Stillness and speed simultaneously. That's where ideas live." },
     { num:'V',   title:'Ships Beat Drafts',   body:"A launched site with rough edges beats a perfect design that never goes live. Done and learning beats perfect and theoretical." },
-    { num:'VI',  title:'Chai Over Coffee',    body:"Every great decision in my life has been made over chai. Every terrible one too, probably. But at least the chai was good." },
+    { num:'VI',  title:'Curiosity First',    body:"I don't just want to know that it works; I want to know why it works. That obsession with the 'why' is what turns a coder into an engineer." },
+    { num:'VII', title:'Stay Uncomfortable',  body:"The moment you feel you've mastered everything is the moment you stop growing. I seek out the problems that make me feel like a beginner again." },
   ]
 
   return (
@@ -757,7 +758,7 @@ export default function KnowMe() {
                 <Glitch text="SHUBHAM" size={isMobile?'clamp(64px,18vw,110px)':'clamp(80px,13vw,180px)'} />
               </div>
               <div style={{marginBottom:'32px'}}>
-                <em style={{fontFamily:"'DM Serif Display',serif",fontStyle:'italic',fontSize: isMobile ? 'clamp(52px,14vw,90px)' : 'clamp(64px,10vw,140px)',lineHeight:.88,color:'var(--accent)',letterSpacing:'-.01em'}}>Vikral.</em>
+                <em style={{fontFamily:"'DM Serif Display',serif",fontStyle:'italic',fontSize: isMobile ? 'clamp(52px,14vw,90px)' : 'clamp(64px,10vw,140px)',lineHeight:.88,color:'var(--accent)',letterSpacing:'-.01em'}}>Choudhary.</em>
               </div>
             </FadeIn>
             <FadeIn delay={200} style={{display:'grid',gridTemplateColumns: isMobile?'1fr':'1fr 1fr',gap: isMobile?'32px':'80px',alignItems:'end',paddingBottom: isMobile?'48px':'80px'}}>
@@ -871,9 +872,6 @@ export default function KnowMe() {
           </div>
         </section>
 
-        {/* ══ GAME — cream ══ */}
-        <TwoTruthsLie />
-
         {/* ══ HORIZONTAL SCROLL ══ */}
         <HorizontalScroll />
 
@@ -903,7 +901,7 @@ export default function KnowMe() {
                   <div style={{fontFamily:"'Bebas Neue',sans-serif",fontSize:'clamp(28px,4vw,44px)',color:'var(--cream)',marginBottom:'12px',lineHeight:1}}>Mountain Drives & Open Roads</div>
                   <p style={{fontSize:0,color:'#666',fontWeight:300,lineH:1.9,maxWidth:'400px'}}>
                     <span style={{fontSize:'14px'}}>Long drives toward the mountains are where I reset. The road gets quieter, the air changes, and the next bend asks for your full attention. It is time away from notifications and deadlines, with enough space to think clearly and return with fresh perspective.</span>
-                    There's a specific freedom on a Noida highway before the city wakes up. No notifications. No deadlines. Just road, engine, and thoughts. I ride to reset — my meditation and most productive thinking time.
+                    There's a specific freedom in a car winding through mountain passes before the world wakes up. No notifications. No deadlines. Just the climb, the view, and thoughts. I drive to reset — my meditation and most productive thinking time.
                   </p>
                   <div style={{marginTop:'20px',display:'flex',gap:'8px',flexWrap:'wrap'}}>
                     {['Mountain Roads','Highway Drives','Dawn Starts','Weekend Escapes'].map(t=>(
@@ -975,23 +973,12 @@ export default function KnowMe() {
           <p style={{fontFamily:"'Syne',sans-serif",fontSize:'10px',fontWeight:700,letterSpacing:'.15em',textTransform:'uppercase',color:'var(--mid)',textAlign:'center',marginTop:'16px'}}>Tap any card for my take on it</p>
         </section>
 
-        {/* ══ MOVIES — ink ══ */}
-        <section style={{background:'var(--ink)',color:'var(--cream)',padding:`${pyLg} ${px}`,borderTop:'1px solid #1a1a1a'}}>
-          <FadeIn>
-            <div style={{fontFamily:"'Syne',sans-serif",fontSize:'11px',fontWeight:700,letterSpacing:'.3em',textTransform:'uppercase',color:'var(--accent)',display:'flex',alignItems:'center',gap:'12px',marginBottom:'20px'}}>
-              <span style={{width:'24px',height:'1px',background:'var(--accent)',display:'block'}}/>
-              Films That Stayed With Me
-            </div>
-            <h2 style={{fontFamily:"'Bebas Neue',sans-serif",fontSize:'clamp(44px,7vw,90px)',lineHeight:.9,letterSpacing:'-.01em',marginBottom:'48px'}}>
-              Movies I<br/><em style={{fontFamily:"'DM Serif Display',serif",fontStyle:'italic',color:'var(--accent)'}}>Rewatch</em>
-            </h2>
-          </FadeIn>
-          <div style={{display:'flex',flexDirection:'column',gap:'1px',background:'#1a1a1a',border:'1px solid #1a1a1a'}}>
-            {movies.map((film,i) => (
-              <MovieCard key={i} film={film} delay={i*60} />
-            ))}
-          </div>
-        </section>
+        {/* ══ GAME — ink ══ */}
+        <div style={{background:'var(--ink)',color:'var(--cream)',borderTop:'1px solid #1a1a1a',borderBottom:'1px solid #1a1a1a'}}>
+          <TwoTruthsLie />
+        </div>
+
+        {/* ══ CTA — cream ══ */}
 
         {/* ══ CTA — cream ══ */}
         <section style={{background:'var(--cream)',padding:isMobile?'80px 20px':'120px 64px',borderTop:'1px solid var(--light)',textAlign:'center',position:'relative',overflow:'hidden'}}>
