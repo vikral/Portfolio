@@ -506,11 +506,10 @@ function HorizontalScroll() {
 /* ── Philosophy Card (Extracted to fix Hook violation) ── */
 function PhilosophyCard({ item, delay }) {
   const [hover, setHover] = useState(false)
-  const { isMobile } = useResponsive()
   return (
     <FadeIn delay={delay}>
       <div onMouseEnter={()=>setHover(true)} onMouseLeave={()=>setHover(false)}
-        style={{background:hover?'var(--ink)':'var(--cream)',padding:isMobile?'32px 24px':'44px 36px',position:'relative',overflow:'hidden',transition:'background .4s',cursor:'default',height:'100%'}}>
+        style={{background:hover?'var(--ink)':'var(--cream)',padding:useResponsive().isMobile?'32px 24px':'44px 36px',position:'relative',overflow:'hidden',transition:'background .4s',cursor:'default',height:'100%'}}>
         <div style={{position:'absolute',bottom:0,left:0,right:0,height:'3px',background:'var(--accent)',transform:hover?'scaleX(1)':'scaleX(0)',transformOrigin:'left',transition:'transform .4s'}}/>
         <div style={{position:'absolute',top:'-20px',right:'-10px',fontFamily:"'Bebas Neue',sans-serif",fontSize:'110px',color:hover?'#1a1a1a':'var(--light)',lineHeight:1,pointerEvents:'none',transition:'color .4s'}}>{item.num}</div>
         <div style={{fontFamily:"'Bebas Neue',sans-serif",fontSize:'clamp(20px,2.5vw,26px)',color:hover?'var(--cream)':'var(--ink)',marginBottom:'14px',position:'relative',zIndex:1,transition:'color .4s'}}>{item.title}</div>
@@ -534,7 +533,7 @@ function MovieCard({ film, delay }) {
           <div style={{fontFamily:"'Bebas Neue',sans-serif",fontSize:'clamp(20px,2.5vw,28px)',color:'var(--cream)',lineHeight:1,marginBottom:'8px'}}>{film.title}</div>
           <span style={{fontFamily:"'Syne',sans-serif",fontSize:'9px',fontWeight:700,letterSpacing:'.15em',textTransform:'uppercase',background:'var(--accent)',color:'#fff',padding:'3px 10px'}}>{film.tag}</span>
         </div>
-        <p style={{fontSize:'14px',color:hover?'#888':'#444',fontWeight:300,lineH:1.7,transition:'color .3s'}}>{film.note}</p>
+        <p style={{fontSize:'14px',color:hover?'#888':'#444',fontWeight:300,lineHeight:1.7,transition:'color .3s'}}>{film.note}</p>
       </div>
     </FadeIn>
   )
@@ -642,8 +641,8 @@ function TwoTruthsLie() {
                 cursor: 'pointer',
                 transition: 'all .2s'
               }}
-              onMouseEnter={e => { e.currentTarget.style.background = 'var(--ink)'; e.currentTarget.style.color = 'var(--cream)'; }}
-              onMouseLeave={e => { e.currentTarget.style.background = 'transparent'; e.currentTarget.style.color = 'var(--ink)'; }}
+              onMouseEnter={e => e.currentTarget.style.background = 'var(--ink)', e => e.currentTarget.style.color = 'var(--cream)'}
+              onMouseLeave={e => e.currentTarget.style.background = 'transparent', e => e.currentTarget.style.color = 'var(--ink)'}
             >
               Play Again
             </button>
@@ -777,7 +776,7 @@ export default function KnowMe() {
           <div style={{display:'grid',gridTemplateColumns: isMobile ? 'repeat(2,1fr)' : 'repeat(4,1fr)',gap:'1px',background:'#1a1a1a',border:'1px solid #1a1a1a'}}>
             {[
               { num:5,  suf:'+', label:'Years\nCoding' },
-              { num:100, suf:'+', label:'Projects\nShipped' },
+              { num:15, suf:'+', label:'Projects\nShipped' },
               { num:3,  suf:'',  label:'Companies\nWorked' },
               { num:27, suf:'',  label:'Years\nOld' },
             ].map((s,i) => (
@@ -901,7 +900,7 @@ export default function KnowMe() {
                 </div>
                 <div style={{position:'relative',zIndex:1}}>
                   <div style={{fontFamily:"'Bebas Neue',sans-serif",fontSize:'clamp(28px,4vw,44px)',color:'var(--cream)',marginBottom:'12px',lineHeight:1}}>Mountain Drives & Open Roads</div>
-                  <p style={{fontSize:0,color:'#666',fontWeight:300,lineH:1.9,maxWidth:'400px'}}>
+                  <p style={{fontSize:0,color:'#666',fontWeight:300,lineHeight:1.9,maxWidth:'400px'}}>
                     <span style={{fontSize:'14px'}}>Long drives toward the mountains are where I reset. The road gets quieter, the air changes, and the next bend asks for your full attention. It is time away from notifications and deadlines, with enough space to think clearly and return with fresh perspective.</span>
                     There's a specific freedom on a Noida highway before the city wakes up. No notifications. No deadlines. Just road, engine, and thoughts. I ride to reset — my meditation and most productive thinking time.
                   </p>

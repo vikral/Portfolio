@@ -59,7 +59,7 @@ export default function About() {
           My work spans custom WordPress theme and plugin development, ACF Pro architecture, e-commerce workflows, REST API integrations, performance optimization, SEO, accessibility, and CMS tools that non-technical teams can manage confidently.
         </p>
         <p style={{fontSize:'15px',color:'var(--mid)',lineHeight:1.9,fontWeight:300,margin:'0 0 24px'}}>
-          Want to know more about the person behind the code?
+          Want to know more about me?
           <Link to="/know-me" style={{color:'var(--accent)',textDecoration:'none',fontWeight:600,marginLeft:'6px',borderBottom:'1px solid var(--accent)'}}>Read my full story →</Link>
         </p>
         <div style={{
