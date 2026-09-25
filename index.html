@@ -120,5 +120,21 @@
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
+    <script>
+      // Netlify may inject its agent-runner badge after the page has loaded.
+      const removeNetlifyBadge = () => {
+        document.querySelectorAll('a, button, [role="button"]').forEach((element) => {
+          if (/^powered by netlify$/i.test(element.textContent.trim())) {
+            element.remove()
+          }
+        })
+      }
+
+      removeNetlifyBadge()
+      new MutationObserver(removeNetlifyBadge).observe(document.body, {
+        childList: true,
+        subtree: true,
+      })
+    </script>
   </body>
 </html>
