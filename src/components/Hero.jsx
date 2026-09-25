@@ -43,7 +43,7 @@ export default function Hero() {
         {/* Mobile stats (shown only on mobile) */}
         {isMobile && (
           <div style={{display:'grid',gridTemplateColumns:'repeat(3,1fr)',gap:'1px',background:'var(--light)',border:'1px solid var(--light)',marginBottom:'32px'}}>
-            {[['5+','Years'],['03','Companies'],['CMS','Specialist']].map(([n,l],i) => (
+            {[['5+','Years'],['03','Companies'],['100+','Projects Delivered']].map(([n,l],i) => (
               <div key={i} style={{background:'var(--cream)',padding:'16px 12px',textAlign:'center'}}>
                 <div style={{fontFamily:"'Bebas Neue',sans-serif",fontSize:'36px',lineHeight:1,color:'var(--ink)'}}>{n}</div>
                 <div style={{fontFamily:"'Syne',sans-serif",fontSize:'9px',fontWeight:700,letterSpacing:'.1em',textTransform:'uppercase',color:'var(--mid)',marginTop:'4px'}}>{l}</div>
@@ -69,7 +69,7 @@ export default function Hero() {
             {[
               {num:'5+',label:'Years\nExperience'},
               {num:'03',label:'Companies\nWorked'},
-              {num:'CMS',label:'WordPress\nWooCommerce'},
+              {num:'100',label:'Projects\nDeilvered'},
             ].map((s,i) => (
               <div key={i} style={{background:'var(--cream)',padding:'28px 24px'}}>
                 <div style={{fontFamily:"'Bebas Neue',sans-serif",fontSize:'52px',lineHeight:1,color:'var(--ink)'}}>{s.num}</div>
