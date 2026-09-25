@@ -33,7 +33,7 @@ export default function Hero() {
         </div>
         <h1 style={{fontFamily:"'Bebas Neue',sans-serif",fontSize: isMobile ? 'clamp(64px,16vw,100px)' : 'clamp(72px,10vw,140px)',lineHeight:.88,letterSpacing:'-.01em',color:'var(--ink)',marginBottom:'8px'}}>
           Shubham
-          <span style={{color:'var(--accent)',display:'block',fontFamily:"'DM Serif Display',serif",fontStyle:'italic',fontSize: isMobile ? 'clamp(52px,13vw,80px)' : 'clamp(60px,8vw,110px)'}}>Kumar</span>
+          <span style={{color:'var(--accent)',display:'block',fontFamily:"'DM Serif Display',serif",fontStyle:'italic',fontSize: isMobile ? 'clamp(52px,13vw,80px)' : 'clamp(60px,8vw,110px)'}}>Choudhary</span>
         </h1>
         <div style={{fontFamily:"'Syne',sans-serif",fontSize:'13px',fontWeight:600,letterSpacing:'.2em',textTransform:'uppercase',color:'var(--warm)',marginBottom:'20px'}}>Software Engineer</div>
         <p style={{fontSize:'15px',fontWeight:300,color:'var(--mid)',maxWidth: isMobile ? '100%' : '420px',margin:'0 0 32px',lineHeight:1.8}}>
