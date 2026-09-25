@@ -1,0 +1,6 @@
+# https://vikral.netlify.app/robots.txt
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://vikral.netlify.app/sitemap.xml

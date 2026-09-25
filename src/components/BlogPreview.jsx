@@ -49,7 +49,7 @@ function PreviewCard({ blog }) {
   const catColor = CATEGORY_COLORS[blog.category] || 'var(--accent)'
 
   return (
-    <Link to={`/blog/${blog.id}`}
+    <div
       onMouseEnter={() => setHover(true)} onMouseLeave={() => setHover(false)}
       style={{
         display:'block', textDecoration:'none',
@@ -66,12 +66,19 @@ function PreviewCard({ blog }) {
       <h3 style={{fontFamily:"'Syne',sans-serif",fontSize: isMobile?'15px':'17px',fontWeight:800,color:'var(--cream)',marginBottom:'10px',lineHeight:1.3,transition:'color .3s'}}>
         {blog.title}
       </h3>
-      <p style={{fontSize:'13px',color:'#666',lineHeight:1.7,fontWeight:300,marginBottom:'20px'}}>
+      <p style={{fontSize:'13px',color:'#666',lineHeight:1.7,fontWeight:300,marginBottom:'24px'}}>
         {blog.excerpt}
       </p>
-      <div style={{fontFamily:"'Syne',sans-serif",fontSize:'10px',fontWeight:700,letterSpacing:'.15em',textTransform:'uppercase',color:catColor,display:'flex',alignItems:'center',gap:'6px'}}>
-        Read <span style={{display:'inline-block',transition:'transform .3s',transform:hover?'translateX(4px)':'none'}}>→</span>
-      </div>
-    </Link>
+      <Link to={`/blog/${blog.id}`} style={{
+        display:'inline-flex',alignItems:'center',gap:'8px',
+        fontFamily:"'Syne',sans-serif",fontSize:'10px',fontWeight:700,
+        letterSpacing:'.15em',textTransform:'uppercase',color:catColor,
+        textDecoration:'none',
+        transition:'transform .3s',
+        transform: hover ? 'translateX(4px)' : 'none'
+      }}>
+        Read Article <span style={{fontSize:'12px'}}>→</span>
+      </Link>
+    </div>
   )
 }

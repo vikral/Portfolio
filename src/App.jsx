@@ -16,8 +16,18 @@ import BlogPreview  from './components/BlogPreview.jsx'
 import Contact      from './components/Contact.jsx'
 import CTA          from './components/CTA.jsx'
 import Footer       from './components/Footer.jsx'
+import { usePageMeta } from './hooks/usePageMeta.js'
+import { SITE, homeJsonLd } from './seo/siteConfig.js'
 
 export default function App() {
+  usePageMeta({
+    title: SITE.title,
+    description: SITE.description,
+    path: '/',
+    type: 'website',
+    jsonLd: homeJsonLd(),
+  })
+
   return (
     <>
       <Cursor />

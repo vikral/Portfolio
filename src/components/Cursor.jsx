@@ -12,28 +12,24 @@ export default function Cursor() {
   useEffect(() => {
     if (isMobile) return
 
-    // ── Move dot instantly, ring lags behind ──
     const onMove = (e) => {
       pos.current.mx = e.clientX
       pos.current.my = e.clientY
       if (dotRef.current) {
-        dotRef.current.style.left = e.clientX + 'px'
-        dotRef.current.style.top  = e.clientY + 'px'
+        dotRef.current.style.transform = `translate(calc(-50% + ${e.clientX}px), calc(-50% + ${e.clientY}px))`
       }
       if (glowRef.current) {
-        glowRef.current.style.left = e.clientX + 'px'
-        glowRef.current.style.top  = e.clientY + 'px'
+        glowRef.current.style.transform = `translate(calc(-50% + ${e.clientX}px), calc(-50% + ${e.clientY}px))`
       }
     }
     document.addEventListener('mousemove', onMove)
 
     // ── Ring follows with smooth lerp ──
     const loop = () => {
-      pos.current.rx += (pos.current.mx - pos.current.rx) * 0.10
-      pos.current.ry += (pos.current.my - pos.current.ry) * 0.10
+      pos.current.rx += (pos.current.mx - pos.current.rx) * 0.15
+      pos.current.ry += (pos.current.my - pos.current.ry) * 0.15
       if (ringRef.current) {
-        ringRef.current.style.left = pos.current.rx + 'px'
-        ringRef.current.style.top  = pos.current.ry + 'px'
+        ringRef.current.style.transform = `translate(calc(-50% + ${pos.current.rx}px), calc(-50% + ${pos.current.ry}px))`
       }
       rafRef.current = requestAnimationFrame(loop)
     }
@@ -118,7 +114,6 @@ export default function Cursor() {
         left: 0,
         pointerEvents: 'none',
         zIndex: 9996,
-        transform: 'translate(-50%,-50%)',
         filter: 'blur(8px)',
         opacity: 0.2,
         transition: 'width .4s ease, height .4s ease, opacity .4s ease',
@@ -136,7 +131,6 @@ export default function Cursor() {
         left: 0,
         pointerEvents: 'none',
         zIndex: 9997,
-        transform: 'translate(-50%,-50%)',
         transition: 'width .35s cubic-bezier(.25,.46,.45,.94), height .35s cubic-bezier(.25,.46,.45,.94), border-color .3s, background .3s',
         mixBlendMode: 'difference',
       }}/>
@@ -152,7 +146,6 @@ export default function Cursor() {
         left: 0,
         pointerEvents: 'none',
         zIndex: 9999,
-        transform: 'translate(-50%,-50%)',
         transition: 'width .25s ease, height .25s ease, background .25s ease, opacity .25s ease',
         mixBlendMode: 'difference',
       }}/>

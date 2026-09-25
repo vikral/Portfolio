@@ -5,6 +5,8 @@ All blog content lives in a single file:
 
 No backend, no CMS, no server required. Just edit the file and redeploy.
 
+**SEO note:** Each post’s `title`, `excerpt`, and `id` power the page title, meta description, Open Graph tags, and JSON-LD. Run `npm run build` after adding posts so `public/sitemap.xml` is regenerated automatically.
+
 ---
 
 ## Step-by-Step
