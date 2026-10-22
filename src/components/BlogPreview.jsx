@@ -15,7 +15,9 @@ export default function BlogPreview() {
   const { isMobile, isTablet } = useResponsive()
   const px = isMobile ? '20px' : isTablet ? '32px' : '48px'
   const py = isMobile ? '72px' : '120px'
-  const recent = blogs.slice(0, 3)
+  const recent = [...blogs]
+    .sort((a, b) => new Date(b.date) - new Date(a.date))
+    .slice(0, 3)
 
   return (
     <section style={{padding:`${py} ${px}`,borderTop:'1px solid var(--light)',background:'var(--ink)',color:'var(--cream)'}}>
@@ -30,7 +32,7 @@ export default function BlogPreview() {
           </div>
         </div>
         <Link to="/blog" ref={ref2} style={{fontFamily:"'Syne',sans-serif",fontSize:'12px',fontWeight:700,letterSpacing:'.15em',textTransform:'uppercase',color:'var(--warm)',textDecoration:'none',display:'flex',alignItems:'center',gap:'10px',borderBottom:'1px solid var(--warm)',paddingBottom:'4px',flexShrink:0}}>
-          All {blogs.length} Articles →
+          All Articles →
         </Link>
       </div>
 

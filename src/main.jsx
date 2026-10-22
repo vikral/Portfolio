@@ -6,6 +6,7 @@ import App        from './App.jsx'
 import BlogList   from './pages/BlogList.jsx'
 import BlogDetail from './pages/BlogDetail.jsx'
 import KnowMe from './pages/KnowMe.jsx'
+import SocialFloat from './components/SocialFloat.jsx'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
@@ -16,6 +17,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
         <Route path="/blog/:id"   element={<BlogDetail />} />
         <Route path="/know-me" element={<KnowMe />} />
       </Routes>
+      <SocialFloat />
     </BrowserRouter>
   </React.StrictMode>
 )

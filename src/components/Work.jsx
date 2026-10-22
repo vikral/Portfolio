@@ -1,4 +1,4 @@
-import React from 'react'
+﻿import React from 'react'
 import { useFadeIn } from '../hooks/useFadeIn'
 import { useResponsive } from '../hooks/useResponsive'
 
@@ -17,43 +17,65 @@ export default function Work() {
   const py = isMobile ? '72px' : '120px'
 
   return (
-    <section id="work" style={{padding:`${py} ${px}`,background:'var(--ink)',color:'var(--cream)'}}>
-      <div style={{display:'flex',flexDirection: isMobile ? 'column' : 'row',justifyContent:'space-between',alignItems: isMobile ? 'flex-start' : 'flex-end',gap:'20px',marginBottom: isMobile ? '40px' : '80px'}}>
+    <section id="work" style={{padding:`${py} ${px}`,background:'var(--ink)',color:'var(--cream)',position:'relative',overflow:'hidden'}}>
+      <div aria-hidden="true" style={{position:'absolute',top:'28px',right:px,fontFamily:"'Bebas Neue',sans-serif",fontSize:'clamp(90px,19vw,260px)',lineHeight:'.8',letterSpacing:'-.04em',color:'transparent',WebkitTextStroke:'1px #1a1a1a',pointerEvents:'none',userSelect:'none'}}>01—05</div>
+      <div style={{display:'flex',flexDirection:isMobile?'column':'row',justifyContent:'space-between',alignItems:isMobile?'stretch':'flex-end',gap:'24px',marginBottom:isMobile?'40px':'64px',position:'relative',zIndex:1}}>
         <div ref={ref1}>
-          <div style={{fontFamily:"'Syne',sans-serif",fontSize:'11px',fontWeight:700,letterSpacing:'.25em',textTransform:'uppercase',color:'var(--warm)',display:'flex',alignItems:'center',gap:'12px',marginBottom:'16px'}}>
-            <span style={{width:'24px',height:'1px',background:'var(--warm)',display:'block'}}/>Featured Projects
+          <div style={{fontFamily:"'Syne',sans-serif",fontSize:'10px',fontWeight:700,letterSpacing:'.28em',textTransform:'uppercase',color:'var(--warm)',display:'flex',alignItems:'center',gap:'12px',marginBottom:'22px'}}>
+            <span style={{width:'32px',height:'1px',background:'var(--accent)',display:'block'}}/>Featured Projects <span style={{color:'#555'}}>— 2021 / 2025</span>
           </div>
-          <div style={{fontFamily:"'Bebas Neue',sans-serif",fontSize:'clamp(40px,7vw,76px)',lineHeight:.9,letterSpacing:'-.01em',color:'var(--cream)'}}>
-            Selected<br/><em style={{fontFamily:"'DM Serif Display',serif",fontStyle:'italic',color:'var(--accent)'}}>Work</em>
-          </div>
+          <h2 style={{fontFamily:"'Bebas Neue',sans-serif",fontWeight:400,fontSize:'clamp(40px,7vw,76px)',lineHeight:'.9',letterSpacing:'-.01em',color:'var(--cream)'}}>
+            Selected <em style={{fontFamily:"'DM Serif Display',serif",fontWeight:400,fontStyle:'italic',color:'var(--accent)',letterSpacing:'-.04em'}}>Work</em>
+          </h2>
         </div>
-        <a href="#more-projects" style={{fontFamily:"'Syne',sans-serif",fontSize:'12px',fontWeight:700,letterSpacing:'.15em',textTransform:'uppercase',color:'var(--warm)',textDecoration:'none',display:'flex',alignItems:'center',gap:'10px',borderBottom:'1px solid var(--warm)',paddingBottom:'4px'}}>
-          More Projects →
-        </a>
+        <div style={{display:'flex',alignItems:'flex-end',justifyContent:'space-between',gap:'24px',maxWidth:isMobile?'none':'300px'}}>
+          <p style={{fontFamily:"'DM Sans',sans-serif",fontSize:'13px',fontWeight:300,lineHeight:1.75,color:'#777',maxWidth:'220px'}}>A selection of products and tools built to solve real problems.</p>
+          <a href="#more-projects" aria-label="Explore more projects" style={{width:'52px',height:'52px',flexShrink:0,border:'1px solid #34312c',borderRadius:'50%',color:'var(--cream)',textDecoration:'none',display:'grid',placeItems:'center',fontSize:'20px',transition:'background .25s,color .25s'}} onMouseEnter={e=>{e.currentTarget.style.background='var(--accent)';e.currentTarget.style.color='#fff'}} onMouseLeave={e=>{e.currentTarget.style.background='transparent';e.currentTarget.style.color='var(--cream)'}}>↗</a>
+        </div>
       </div>
-      <div style={{display:'grid',gridTemplateColumns: isMobile ? '1fr' : 'repeat(2,1fr)',gap:'2px'}}>
-        {projects.map((p,i) => <WorkItem key={i} {...p} delay={i*50} isMobile={isMobile} />)}
+      <div style={{display:'grid',gridTemplateColumns:isMobile?'1fr':'repeat(2,1fr)',gap:'10px',position:'relative',zIndex:1}}>
+        {projects.filter(project => project.name !== 'Langly Plugin').map((project,i)=><WorkItem key={project.name} {...project} index={i+1} delay={i*50} isMobile={isMobile}/ >)}
+        <ContactWorkCard isMobile={isMobile} delay={220} />
+        {projects.filter(project => project.name === 'Langly Plugin').map((project,i)=><WorkItem key={project.name} {...project} index={5} delay={i*50+270} isMobile={isMobile}/ >)}
       </div>
     </section>
   )
 }
 
-function WorkItem({ name, desc, tag, bg, tech, large, delay, isMobile }) {
-  const [hover, setHover] = React.useState(false)
-  const ref = useFadeIn(delay)
+function ContactWorkCard({isMobile,delay}) {
+  const ref=useFadeIn(delay)
   return (
-    <div ref={ref}
-      onMouseEnter={()=>setHover(true)} onMouseLeave={()=>setHover(false)}
-      style={{position:'relative',aspectRatio: isMobile ? '4/3' : large ? '16/7' : '4/3',overflow:'hidden',gridColumn: (!isMobile && large) ? 'span 2' : undefined}}>
-      <div style={{position:'absolute',inset:0,background:bg,display:'flex',alignItems:'center',justifyContent:'center',fontFamily:"'Bebas Neue',sans-serif",fontSize: isMobile ? 'clamp(24px,6vw,48px)' : 'clamp(40px,5.5vw,90px)',color:'#222',letterSpacing:'-.02em',transition:'transform .6s',transform:hover?'scale(1.05)':'scale(1)',userSelect:'none',textAlign:'center',padding:'16px'}}>{name.toUpperCase()}</div>
-      <span style={{position:'absolute',top:'16px',left:'16px',fontFamily:"'Syne',sans-serif",fontSize:'10px',fontWeight:700,letterSpacing:'.2em',textTransform:'uppercase',background:'var(--accent)',color:'#fff',padding:'5px 12px'}}>{tag}</span>
-      <div style={{position:'absolute',inset:0,padding:'24px',display:'flex',flexDirection:'column',justifyContent:'flex-end',background:'linear-gradient(to top,rgba(0,0,0,.85) 0%,transparent 60%)',opacity: isMobile ? 1 : hover ? 1 : 0,transition:'opacity .4s'}}>
-        <div style={{fontFamily:"'DM Serif Display',serif",fontSize: isMobile ? '18px' : '24px',color:'var(--cream)',marginBottom:'6px'}}>{name}</div>
-        <div style={{fontFamily:"'Syne',sans-serif",fontSize:'10px',fontWeight:600,letterSpacing:'.15em',color:'var(--warm)',textTransform:'uppercase',marginBottom:'10px'}}>{desc}</div>
-        <div style={{display:'flex',flexWrap:'wrap',gap:'5px'}}>
-          {tech.map((t,i) => <span key={i} style={{fontFamily:"'Syne',sans-serif",fontSize:'9px',fontWeight:700,letterSpacing:'.1em',textTransform:'uppercase',border:'1px solid rgba(200,169,126,.4)',color:'var(--warm)',padding:'3px 8px'}}>{t}</span>)}
-        </div>
+    <article ref={ref} style={{position:'relative',aspectRatio:isMobile?'4/3':'4/3',overflow:'hidden',background:'#17120f',border:'1px solid #33241e',display:'flex',flexDirection:'column',justifyContent:'space-between',padding:isMobile?'24px':'32px',isolation:'isolate'}}>
+      <div aria-hidden="true" style={{position:'absolute',inset:0,background:'radial-gradient(ellipse at 100% 0%,rgba(232,75,43,.2),transparent 62%)',pointerEvents:'none'}}/>
+      <div style={{position:'relative',display:'flex',justifyContent:'space-between',alignItems:'center'}}>
+        <span style={{fontFamily:"'Syne',sans-serif",fontSize:'9px',fontWeight:700,letterSpacing:'.18em',textTransform:'uppercase',color:'#d6a28f',border:'1px solid #ffffff24',padding:'7px 10px'}}>More work, on request</span>
+        <span style={{fontFamily:"'Bebas Neue',sans-serif",fontSize:'18px',color:'#aaa'}}>06 <span style={{color:'var(--accent)'}}>↗</span></span>
       </div>
-    </div>
+      <div style={{position:'relative'}}>
+        <h3 style={{fontFamily:"'Bebas Neue',sans-serif",fontWeight:400,fontSize:isMobile?'clamp(30px,8vw,46px)':'clamp(34px,4vw,54px)',letterSpacing:'-.015em',color:'var(--cream)',lineHeight:'.95',marginBottom:'10px'}}>Have a project<br/><em style={{fontFamily:"'DM Serif Display',serif",fontWeight:400,color:'var(--accent)'}}>in mind?</em></h3>
+        <p style={{fontFamily:"'DM Sans',sans-serif",fontSize:'13px',fontWeight:300,lineHeight:1.7,color:'#aaa',marginBottom:'20px'}}>Get in touch to see more work and talk about what we can build together.</p>
+        <a href="#contact" style={{display:'inline-flex',alignItems:'center',gap:'12px',padding:'12px 16px',background:'var(--accent)',color:'#fff',fontFamily:"'Syne',sans-serif",fontSize:'9px',fontWeight:700,letterSpacing:'.14em',textTransform:'uppercase',textDecoration:'none'}}>Contact me <span aria-hidden="true">↗</span></a>
+      </div>
+    </article>
+  )
+}
+
+function WorkItem({name,desc,tag,bg,tech,large,delay,index,isMobile}) {
+  const [hover,setHover]=React.useState(false)
+  const ref=useFadeIn(delay)
+  return (
+    <article ref={ref} onMouseEnter={()=>setHover(true)} onMouseLeave={()=>setHover(false)} style={{position:'relative',aspectRatio:isMobile?'4/3':large?'16/7':'4/3',overflow:'hidden',gridColumn:(!isMobile&&large)?'span 2':undefined,background:'#10100f',border:'1px solid #1c1b19',isolation:'isolate'}}>
+      <div aria-hidden="true" style={{position:'absolute',inset:0,background:`radial-gradient(ellipse at 75% 30%,${bg} 0%,#10100f 70%)`,display:'flex',alignItems:'center',justifyContent:'center',fontFamily:"'Bebas Neue',sans-serif",fontSize:isMobile?'clamp(28px,8vw,56px)':'clamp(52px,9vw,130px)',color:'rgba(245,240,232,.09)',letterSpacing:'-.035em',transition:'transform .7s cubic-bezier(.2,.7,.2,1)',transform:hover?'scale(1.035)':'scale(1)',userSelect:'none',textAlign:'center',padding:'20px'}}>{name.toUpperCase()}</div>
+      <div aria-hidden="true" style={{position:'absolute',inset:0,background:'linear-gradient(180deg,rgba(0,0,0,.1) 0%,rgba(0,0,0,.05) 30%,rgba(0,0,0,.86) 100%)'}}/>
+      <div style={{position:'absolute',top:'20px',left:'22px',right:'22px',display:'flex',justifyContent:'space-between',alignItems:'center'}}>
+        <span style={{fontFamily:"'Syne',sans-serif",fontSize:'9px',fontWeight:700,letterSpacing:'.18em',textTransform:'uppercase',color:'#bbb',border:'1px solid #ffffff24',padding:'7px 10px',background:'#00000030'}}>{tag}</span>
+        <span style={{fontFamily:"'Bebas Neue',sans-serif",fontSize:'18px',color:'#aaa'}}>0{index} <span style={{color:'var(--accent)'}}>↗</span></span>
+      </div>
+      <div style={{position:'absolute',left:isMobile?'22px':'32px',right:isMobile?'22px':'32px',bottom:isMobile?'22px':'30px',display:'flex',flexDirection:'column',alignItems:'flex-start',transform:hover?'translateY(-3px)':'none',transition:'transform .3s'}}>
+        <h3 style={{fontFamily:"'Bebas Neue',sans-serif",fontWeight:400,fontSize:isMobile?'clamp(27px,7vw,42px)':'clamp(34px,5vw,64px)',letterSpacing:'-.015em',color:'var(--cream)',lineHeight:'.95',marginBottom:'8px'}}>{name}</h3>
+        <p style={{fontFamily:"'DM Sans',sans-serif",fontSize:isMobile?'12px':'13px',fontWeight:300,color:'#aaa',marginBottom:'16px'}}>{desc}</p>
+        <div style={{display:'flex',flexWrap:'wrap',gap:'6px'}}>{tech.map(t=><span key={t} style={{fontFamily:"'Syne',sans-serif",fontSize:'8px',fontWeight:600,letterSpacing:'.09em',textTransform:'uppercase',border:'1px solid #ffffff20',color:'#c2bdb4',padding:'5px 8px',background:'#00000026'}}>{t}</span>)}</div>
+      </div>
+    </article>
   )
 }
