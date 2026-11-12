@@ -2,6 +2,7 @@ import React, { Suspense, lazy } from 'react'
 import ReactDOM from 'react-dom/client'
 import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom'
 import './index.css'
+import Preloader from './components/Preloader.jsx'
 import SocialFloat from './components/SocialFloat.jsx'
 import MobileNav from './components/MobileNav.jsx'
 import { usePageMeta } from './hooks/usePageMeta.js'
@@ -14,6 +15,7 @@ const KnowMe = lazy(() => import('./pages/KnowMe.jsx'))
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <BrowserRouter>
+      <Preloader />
       <Suspense fallback={<main aria-label="Loading page" style={{ minHeight: '100vh', background: 'var(--cream)' }} />}>
         <Routes>
           <Route path="/" element={<App />} />

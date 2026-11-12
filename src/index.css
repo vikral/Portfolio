@@ -20,6 +20,227 @@ body {
   overflow-x: hidden;
 }
 
+/* ── Brand preloader ────────────────────────────────── */
+.preloader {
+  position: fixed;
+  z-index: 2000;
+  inset: 0;
+  display: grid;
+  overflow: hidden;
+  place-items: center;
+  background: transparent;
+  color: var(--ink);
+}
+
+.preloader::before {
+  position: absolute;
+  z-index: 0;
+  inset: 0;
+  background:
+    radial-gradient(ellipse at 50% 45%, rgba(200, 169, 126, .18), transparent 38%),
+    radial-gradient(ellipse at center, #FFFEFC 0%, var(--cream) 72%);
+  content: '';
+  transition: opacity .95s ease;
+}
+
+.preloader.is-exiting::before {
+  opacity: 0;
+}
+
+.preloader.is-exiting {
+  pointer-events: none;
+}
+
+.preloader.is-exiting .preloader-grid,
+.preloader.is-exiting .preloader-orbit,
+.preloader.is-exiting .preloader-caption,
+.preloader.is-exiting .preloader-progress,
+.preloader.is-exiting .preloader-corner {
+  opacity: 0;
+}
+
+.preloader-grid {
+  position: absolute;
+  z-index: 1;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(13, 13, 13, .035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(13, 13, 13, .035) 1px, transparent 1px);
+  background-position: center;
+  background-size: 64px 64px;
+  mask-image: radial-gradient(ellipse at center, #000 0%, transparent 74%);
+  pointer-events: none;
+  transition: opacity .45s ease;
+}
+
+.preloader-center {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: min(100%, 440px);
+  text-align: center;
+}
+
+.preloader-brand-wrap {
+  position: relative;
+  display: grid;
+  width: min(100%, 360px);
+  height: 150px;
+  place-items: center;
+}
+
+.preloader-orbit {
+  position: absolute;
+  width: min(290px, 85vw);
+  height: 92px;
+  border: 1px solid rgba(13, 13, 13, .12);
+  border-radius: 50%;
+  border-right-color: var(--accent);
+  animation: preloader-orbit 4s linear infinite;
+  transition: opacity .35s ease;
+}
+
+.preloader-wordmark {
+  position: relative;
+  z-index: 1;
+  color: var(--ink);
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(68px, 11vw, 104px);
+  font-weight: 400;
+  letter-spacing: .1em;
+  line-height: 1;
+  white-space: nowrap;
+  will-change: transform;
+  animation: preloader-word-in .8s .12s both;
+  transition:
+    transform .9s cubic-bezier(.2, .75, .25, 1),
+    opacity .22s ease .72s;
+}
+
+.preloader.is-exiting .preloader-wordmark {
+  transform:
+    translate(var(--logo-flight-x, 0px), var(--logo-flight-y, 0px))
+    scale(var(--logo-flight-scale, .25));
+  opacity: 0;
+}
+
+.preloader-caption {
+  margin: 6px 0 0;
+  color: var(--mid);
+  font-family: 'Syne', sans-serif;
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: .24em;
+  text-transform: uppercase;
+  animation: preloader-word-in .7s .28s both;
+  transition: opacity .35s ease;
+}
+
+.preloader-progress {
+  position: relative;
+  width: 130px;
+  height: 2px;
+  overflow: hidden;
+  margin-top: 24px;
+  background: rgba(13, 13, 13, .1);
+  animation: preloader-word-in .7s .38s both;
+  transition: opacity .35s ease;
+}
+
+.preloader-progress > span {
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 34%;
+  background: var(--accent);
+  animation: preloader-progress 1.25s ease-in-out infinite;
+}
+
+.preloader-corner {
+  position: absolute;
+  z-index: 2;
+  color: rgba(13, 13, 13, .42);
+  font-family: 'Syne', sans-serif;
+  font-size: 8px;
+  font-weight: 600;
+  letter-spacing: .18em;
+  line-height: 1.8;
+  transition: opacity .35s ease;
+}
+
+.preloader-corner-top {
+  top: 32px;
+  left: 36px;
+}
+
+.preloader-corner-bottom {
+  right: 36px;
+  bottom: 32px;
+}
+
+@keyframes preloader-orbit {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes preloader-progress {
+  from { transform: translateX(-120%); }
+  to { transform: translateX(360%); }
+}
+
+@keyframes preloader-word-in {
+  from { opacity: 0; filter: blur(8px); }
+  to { opacity: 1; filter: blur(0); }
+}
+
+@media (max-width: 600px) {
+  .preloader-brand-wrap {
+    height: 128px;
+  }
+
+  .preloader-wordmark {
+    font-size: clamp(58px, 18vw, 80px);
+  }
+
+  .preloader-corner-top {
+    top: 24px;
+    left: 22px;
+  }
+
+  .preloader-corner-bottom {
+    right: 22px;
+    bottom: 24px;
+    font-size: 7px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .preloader::before,
+  .preloader-grid,
+  .preloader-orbit,
+  .preloader-wordmark,
+  .preloader-caption,
+  .preloader-progress,
+  .preloader-corner {
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+
+  .preloader-orbit,
+  .preloader-progress > span {
+    animation: none;
+  }
+
+  .preloader::before,
+  .preloader-wordmark {
+    transition-duration: .12s;
+  }
+
+  .preloader-wordmark {
+    transition-delay: 0s;
+  }
+}
+
 /* ── Animations ─────────────────────────────────────── */
 @keyframes marquee {
   0%   { transform: translateX(0); }
