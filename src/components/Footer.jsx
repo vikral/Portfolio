@@ -6,7 +6,7 @@ export default function Footer() {
   const { isMobile } = useResponsive()
   return (
     <footer style={{
-      padding: isMobile ? '32px 20px' : '48px',
+      padding: isMobile ? '32px 20px calc(104px + env(safe-area-inset-bottom))' : '48px',
       background:'var(--ink)', borderTop:'1px solid #1A1A1A',
       display:'flex', flexDirection: isMobile ? 'column' : 'row',
       justifyContent:'space-between', alignItems:'center',

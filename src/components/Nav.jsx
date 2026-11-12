@@ -4,7 +4,8 @@ import { useResponsive } from '../hooks/useResponsive.js'
 
 export default function Nav() {
   const [open, setOpen] = useState(false)
-  const { isMobile } = useResponsive()
+  const { isMobile, isTablet } = useResponsive()
+  const isCompact = isMobile || isTablet
 
   const close = () => { setOpen(false); document.body.style.overflow = '' }
   const toggle = () => {
@@ -17,14 +18,14 @@ export default function Nav() {
     <>
       <nav style={{
         position:'fixed',top:0,left:0,right:0,zIndex:100,
-        padding: isMobile ? '16px 20px' : '24px 48px',
+        padding: isMobile ? '16px 20px' : isTablet ? '20px 28px' : '24px 48px',
         display:'flex',alignItems:'center',justifyContent:'space-between',
         background:'var(--cream)',
         borderBottom: isMobile ? '1px solid var(--light)' : 'none',
       }}>
-        <a href="#" style={{fontFamily:"'Bebas Neue',sans-serif",fontSize:'22px',letterSpacing:'.1em',color:'var(--ink)',textDecoration:'none'}}>Vikral</a>
+        <a href="#" className="nav-brand" style={{fontFamily:"'Bebas Neue',sans-serif",fontSize:'22px',lineHeight:1,letterSpacing:'.1em',color:'var(--ink)',textDecoration:'none'}}>Vikral</a>
 
-        {!isMobile && (
+        {!isCompact && (
           <ul style={{display:'flex',gap:'32px',listStyle:'none',alignItems:'center'}}>
             {['about','experience','work','services'].map(id => (
               <li key={id}><NavLink href={`#${id}`}>{id.charAt(0).toUpperCase()+id.slice(1)}</NavLink></li>
@@ -40,10 +41,10 @@ export default function Nav() {
         )}
 
         <div style={{display:'flex',alignItems:'center',gap:'12px'}}>
-          {!isMobile && (
+          {!isCompact && (
             <span style={{fontFamily:"'Syne',sans-serif",fontSize:'11px',fontWeight:700,letterSpacing:'.1em',textTransform:'uppercase',background:'var(--ink)',color:'#fff',padding:'6px 14px',borderRadius:'100px'}}>Available for Work</span>
           )}
-          {isMobile && (
+          {isCompact && (
             <span style={{fontFamily:"'Syne',sans-serif",fontSize:'9px',fontWeight:700,letterSpacing:'.08em',textTransform:'uppercase',background:'var(--accent)',color:'#fff',padding:'5px 10px',borderRadius:'100px'}}>Available</span>
           )}
           <button onClick={toggle} aria-label="Toggle menu" style={{display:'flex',flexDirection:'column',justifyContent:'center',gap:'5px',width:'36px',height:'36px',cursor:'pointer',background:'none',border:'none',padding:'4px',zIndex:200}}>

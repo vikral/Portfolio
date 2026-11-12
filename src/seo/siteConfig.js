@@ -69,6 +69,11 @@ export function homeJsonLd() {
           'SEO',
           'Accessibility',
         ],
+        sameAs: [
+          'https://www.linkedin.com/in/vikral/',
+          'https://instagram.com/vikral_',
+          'https://x.com/iamvikral',
+        ],
       },
       {
         '@type': 'ProfilePage',
