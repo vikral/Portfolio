@@ -3,10 +3,9 @@ import { Link } from 'react-router-dom'
 import { useResponsive } from '../hooks/useResponsive.js'
 import { usePageMeta } from '../hooks/usePageMeta.js'
 import { SITE, absoluteUrl } from '../seo/siteConfig.js'
-import Cursor from '../components/Cursor.jsx'
 import Footer from '../components/Footer.jsx'
 import bikeImage from '../assets/bikes.jpg'
-import booksImage from '../assets/books.png'
+import booksImage from '../assets/books.jpg'
 
 /* ── Scroll progress ── */
 function ScrollProgress() {
@@ -717,7 +716,6 @@ export default function KnowMe() {
 
   return (
     <>
-      <Cursor />
       <ScrollProgress />
 
       {/* NAV */}
@@ -819,7 +817,7 @@ export default function KnowMe() {
                   boxShadow: '0 20px 40px rgba(0,0,0,0.3)',
                 }}>
                   <div style={{position:'absolute',inset:0,background:'linear-gradient(135deg,rgba(232,75,43,.1),transparent)',zIndex:1,pointerEvents:'none'}}/>
-                  <img src="/about-image.png" alt="My story" style={{width:'100%',height:'100%',objectFit:'cover',objectPosition:'center top',display:'block',transform:'scaleX(-1)'}}/>
+                  <img src="/about-image.jpg" alt="Shubham Kumar, also known as Vikral" loading="lazy" decoding="async" style={{width:'100%',height:'100%',objectFit:'cover',objectPosition:'center top',display:'block',transform:'scaleX(-1)'}}/>
                 </div>
             </FadeIn>
             <div style={{display:'flex',flexDirection:'column',gap:'28px'}}>
@@ -893,7 +891,7 @@ export default function KnowMe() {
             <FadeIn style={{gridRow:isMobile?'auto':'span 2'}}>
               <div style={{background:'#0d0d0d',padding:isMobile?'40px 24px':'56px 48px',height:'100%',position:'relative',overflow:'hidden',display:'flex',flexDirection:'column',gap:'20px'}}>
                 <div style={{position:'absolute',bottom:'-20px',right:'-10px',fontFamily:"'Bebas Neue',sans-serif",fontSize:'clamp(80px,12vw,160px)',color:'#111',lineHeight:1,pointerEvents:'none',userSelect:'none'}}>DRIVE</div>
-                <img src={bikeImage} alt="Motorbike ready for an open road ride" style={{width:'100%',aspectRatio:'16/9',objectFit:'cover',border:'1px solid #1f1f1f',flexShrink:0}} />
+                <img src={bikeImage} alt="Motorbike ready for an open road ride" loading="lazy" decoding="async" style={{width:'100%',aspectRatio:'16/9',objectFit:'cover',border:'1px solid #1f1f1f',flexShrink:0}} />
                 <div style={{position:'relative',zIndex:1}}>
                   <div style={{fontFamily:"'Bebas Neue',sans-serif",fontSize:'clamp(28px,4vw,44px)',color:'var(--cream)',marginBottom:'12px',lineHeight:1}}>Mountain Drives & Open Roads</div>
                   <p style={{fontSize:0,color:'#666',fontWeight:300,lineH:1.9,maxWidth:'400px'}}>
@@ -911,7 +909,7 @@ export default function KnowMe() {
             {/* Books */}
             <FadeIn delay={100}>
               <div style={{background:'#111',padding:isMobile?'36px 24px':'44px 40px',borderBottom:'2px solid #1a1a1a',display:'flex',flexDirection:'column',gap:'16px'}}>
-                <img src={booksImage} alt="Books and reading" style={{width:'100%',aspectRatio:'16/7',objectFit:'cover',border:'1px solid #1f1f1f',flexShrink:0}} />
+                <img src={booksImage} alt="Books and reading" loading="lazy" decoding="async" style={{width:'100%',aspectRatio:'16/7',objectFit:'cover',border:'1px solid #1f1f1f',flexShrink:0}} />
                 <div style={{fontFamily:"'Bebas Neue',sans-serif",fontSize:'clamp(22px,3vw,32px)',color:'var(--cream)',lineHeight:1}}>Hindi Literature & Beyond</div>
                 <p style={{fontSize:'14px',color:'#555',fontWeight:300,lineHeight:1.8}}>Gunaho Ka Devta broke me open at 19. Rashmirathi gave me Karna. Literature does what no tutorial can — it changes how you see everything.</p>
               </div>

@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom'
 import { useResponsive } from '../hooks/useResponsive.js'
 import { usePageMeta } from '../hooks/usePageMeta.js'
 import { SITE, absoluteUrl } from '../seo/siteConfig.js'
-import Cursor from '../components/Cursor.jsx'
 import Footer from '../components/Footer.jsx'
 
 /* ── Scroll progress ── */
@@ -713,7 +712,6 @@ export default function KnowMe() {
 
   return (
     <>
-      <Cursor />
       <ScrollProgress />
 
       {/* NAV */}

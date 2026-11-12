@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import { blogs } from '../data/blogs.js'
+import { blogIndex as blogs } from 'virtual:blog-index'
 import { useResponsive } from '../hooks/useResponsive.js'
 import { useFadeIn } from '../hooks/useFadeIn.js'
 import { usePageMeta } from '../hooks/usePageMeta.js'
 import { SITE, absoluteUrl } from '../seo/siteConfig.js'
 import Footer from '../components/Footer.jsx'
-import Cursor from '../components/Cursor.jsx'
 
 const CATEGORY_COLORS = {
   WordPress:      '#E84B2B',
@@ -80,7 +79,6 @@ export default function BlogList() {
 
   return (
     <>
-      <Cursor />
       {/* Nav */}
       <nav style={{
         position:'fixed',top:0,left:0,right:0,zIndex:100,

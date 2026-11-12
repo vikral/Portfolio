@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { blogs } from '../data/blogs.js'
+import { blogIndex } from 'virtual:blog-index'
 import { useFadeIn } from '../hooks/useFadeIn.js'
 import { useResponsive } from '../hooks/useResponsive.js'
 
@@ -15,7 +15,7 @@ export default function BlogPreview() {
   const { isMobile, isTablet } = useResponsive()
   const px = isMobile ? '20px' : isTablet ? '32px' : '48px'
   const py = isMobile ? '72px' : '120px'
-  const recent = [...blogs]
+  const recent = [...blogIndex]
     .sort((a, b) => new Date(b.date) - new Date(a.date))
     .slice(0, 3)
 

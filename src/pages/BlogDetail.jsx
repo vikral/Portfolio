@@ -6,7 +6,6 @@ import { usePageMeta } from '../hooks/usePageMeta.js'
 import { SITE, absoluteUrl } from '../seo/siteConfig.js'
 import ScrollProgress from '../components/ScrollProgress.jsx'
 import Footer from '../components/Footer.jsx'
-import Cursor from '../components/Cursor.jsx'
 
 const CATEGORY_COLORS = {
   WordPress:'#E84B2B', Angular:'#DD0031', WooCommerce:'#7F54B3',
@@ -246,7 +245,6 @@ export default function BlogDetail() {
 
   return (
     <>
-      <Cursor />
       <ScrollProgress />
 
       {/* Nav */}
@@ -362,7 +360,7 @@ export default function BlogDetail() {
               <button
                 onClick={() => setTocOpen(true)}
                 style={{
-                  position:'fixed',bottom:'30px',right:'20px',zIndex:200,
+                  position:'fixed',bottom:'calc(142px + env(safe-area-inset-bottom))',right:'20px',zIndex:950,
                   width:'48px',height:'48px',borderRadius:'50%',background:'var(--accent)',
                   color:'#fff',border:'none',cursor:'pointer',boxShadow:'0 4px 12px rgba(0,0,0,0.2)',
                   display:'flex',alignItems:'center',justifyContent:'center'
